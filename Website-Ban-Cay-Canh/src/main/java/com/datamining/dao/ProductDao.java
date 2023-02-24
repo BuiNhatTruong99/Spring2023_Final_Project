@@ -30,7 +30,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     Page<Product> findByKeywordAndPrice(String keyword,Double price1, Double price2, Pageable pageable);
 
     //find product by category and filter
-    @Query(value = "SELECT * FROM Products p join categories c on p.id = c.id where c.url=?1 and p.price >= ?2 and p.price <= ?3 ",nativeQuery = true)
+    @Query(value = "SELECT * FROM Products p join categories c on p.categories_id = c.id where c.url=?1 and p.price >= ?2 and p.price <= ?3 ",nativeQuery = true)
     Page<Product> findByPriceAndCater(String cid,Double price1, Double price2, Pageable pageable);
 
 

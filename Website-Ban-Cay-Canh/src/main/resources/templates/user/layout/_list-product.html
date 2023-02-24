@@ -55,34 +55,39 @@
 			<th:block>
 				<th:block th:if="!${url} and !${search} and !${price} and !${keyword} and !${cates}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{/product/list?page=0}">First </a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{/product/list?page=0}">First </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}" 
 						th:href="@{|/product/list?page=${items.number -1} |}" >Previous </a></li>
-						<li class="page-item"><a class="page-link" th:if="${items.number < 8}"
+						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
 						th:href="@{|/product/list?page=${items.number + 1} |}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" th:href="@{|/product/list?page=${items.totalPages - 1} |}">Last</a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{|/product/list?page=${items.totalPages - 1} |}">Last</a></li>
 					</ul>
 				</th:block>
 			<!-- Page cate -->
 				<th:block th:if="${url} or !${cates}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{|/product/list?cate=${url}&&page=0|}">First</a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{|/product/list?cate=${url}&&page=0|}">First</a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
 						 th:href="@{|/product/list?cate=${url}&&page=${items.number -1} |}" >Previous </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
 						th:href="@{|/product/list?cate=${url}&&page=${items.number + 1} |}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" th:href="@{|/product/list?cate=${url}&&page=${items.totalPages - 1} |}">Last</a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{|/product/list?cate=${url}&&page=${items.totalPages - 1} |}">Last</a></li>
 					</ul>
 				</th:block>
 			<!-- Page Search -->
 				<th:block th:if="${search}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{/product/list?search=${search}&&page=0}">First </a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{/product/list?search=${search}&&page=0}">First </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
 						th:href="@{|/product/list?search=${search}&&page=${items.number -1} |}" >Previous </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages}"
 						th:href="@{|/product/list?search=${search}&&page=${items.number + 1} |}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" 
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
 						th:href="@{|/product/list?search=${search}&&page=${items.totalPages - 1} |}">Last</a></li>
 					</ul> 
 				</th:block>
@@ -90,12 +95,13 @@
 			<!-- Page filter -->
 				<th:block th:if="${price} and !${keyword}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{/products_filter?page=0}">First </a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{/products_filter?page=0}">First </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
 						th:href="@{|/products_filter?count=${price}&&page=${items.number -1} |}" >Previous </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages}"
 						th:href="@{|/products_filter?count=${price}&&page=${items.number + 1} |}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" 
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
 						th:href="@{|/products_filter?count=${price}&&page=${items.totalPages - 1} |}">Last</a></li>
 					</ul> 
 				</th:block>
@@ -103,12 +109,13 @@
 			<!-- Page filter name by price -->
 				<th:block th:if="${keywords} and ${searchs} and !${search}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{|/product/search/${keyword}?count=${price}&&?page=0|}">First </a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						th:href="@{|/product/search/${keyword}?count=${price}&&?page=0|}">First </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.number -1}|}" >Previous </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages -1}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.number + 1}|}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" 
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.totalPages - 1}|}">Last</a></li>
 					</ul> 
 				</th:block>
@@ -116,12 +123,13 @@
 			<!-- Page filter category by price -->
 				<th:block th:if="${cates} and !${url}">
 					<ul class="pagination ">
-						<li class="page-item"><a class="page-link" th:href="@{|/product/list/${cates}?count=${price}&&?page=0|}">First </a></li>
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
+						 th:href="@{|/product/list/${cates}?count=${price}&&?page=0|}">First </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.number -1}|}" >Previous </a></li>
 						<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages -1}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.number + 1}|}" >Next</a></li>	
-						<li class="page-item"><a class="page-link" 
+						<li class="page-item"><a class="page-link" th:if="${items.number == items.totalPages - 1}"
 						th:href="@{|/product/search/${keyword}?count=${price}&&?page=${items.totalPages - 1}|}">Last</a></li>
 					</ul> 
 				</th:block>
