@@ -31,7 +31,7 @@ public class HomeController {
 	@RequestMapping("/login")
 	public String login()
 	{
-		return "user/security/login";
+		return "user/security/loginQR";
 	}
 	
 	@RequestMapping("/cart/detail")
@@ -45,7 +45,13 @@ public class HomeController {
 	{
 		return "user/security/my-account";
 	}
-	
+
+	@RequestMapping("/gender")
+	public String genderQr()
+	{
+		return "user/security/genderQr";
+	}
+
 //	@RequestMapping("/product/detail")
 //	public String product_detail()
 //	{
