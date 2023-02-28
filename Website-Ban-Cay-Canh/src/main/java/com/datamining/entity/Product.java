@@ -37,13 +37,11 @@ public class Product implements Serializable {
 	private Date update_date = new Date();
 
 	// discount_id
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "discount_id")
 	private Discount discount;
 
 	// material_id
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "prod_material_id")
 	ProductMaterial material;
@@ -54,10 +52,9 @@ public class Product implements Serializable {
 	private Category categories;
 
 	// Wish_List
-	@JsonIgnore
-	@ManyToMany(mappedBy = "product_like", fetch = FetchType.LAZY)
-	@JsonBackReference
-	private Set<Account> likes;
+//	@ManyToMany(mappedBy = "product_like", fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private Set<Account> likes;
 
 	// Order_Detail
 	@JsonIgnore
@@ -66,7 +63,7 @@ public class Product implements Serializable {
 
 	// Product_Rate
 	@JsonIgnore
-	@OneToMany(mappedBy = "productRate", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private List<ProductRate> productRates;
 
 	// Product_Size
