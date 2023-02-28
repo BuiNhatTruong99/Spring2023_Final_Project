@@ -38,22 +38,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.userDetailsService(username -> {
-//
-//            try {
-//                Account acc = accountService.findByTk(username);
-//                String password = pe.encode(acc.getPassword());
-//                Integer[] roles = acc.getAuthorities().stream()
-//                        .map(rl -> rl.getRole().getId())
-//                        .collect(Collectors.toList()).toArray(new Integer[0])
-//                        ;
-//
-//                return User.withUsername(username).password(password).roles(String.valueOf(roles)).build();
-//            }catch (Exception e)
-//            {
-//                throw new UsernameNotFoundException(username + "not found");
-//            }
-//        });
+        auth.userDetailsService(username -> {
+
+            try {
+                Account acc = accountService.findByTk(username);
+                String password = pe.encode(acc.getPassword());
+                Integer[] roles = acc.getAuthorities().stream()
+                        .map(rl -> rl.getRole().getId())
+                        .collect(Collectors.toList()).toArray(new Integer[0])
+                        ;
+
+                return User.withUsername(username).password(password).roles(String.valueOf(roles)).build();
+            }catch (Exception e)
+            {
+                throw new UsernameNotFoundException(username + "not found");
+            }
+        });
     }
 
     @Override
@@ -66,10 +66,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-//		http.authorizeHttpRequests()
-//		.antMatchers("/admin/**").hasAuthority("1")
-//		.antMatchers("/admin/**").hasAnyRole("1")
-//		.anyRequest().permitAll();
+		http.authorizeHttpRequests()
+		.antMatchers("/admin/**").hasAuthority("1")
+		.antMatchers("/admin/**").hasAnyRole("1")
+		.anyRequest().permitAll();
 
 
         http.formLogin()

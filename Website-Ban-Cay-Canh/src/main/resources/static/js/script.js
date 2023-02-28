@@ -24,7 +24,7 @@ $('.owl-loaded').owlCarousel({
     dots: false,
     nav: true,
     autoplay: true,
-    autoplayTimeout: 2000,
+    autoplayTimeout: 4000,
     responsive: {
         0: {
             items: 1
