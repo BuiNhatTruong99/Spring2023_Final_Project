@@ -169,6 +169,14 @@ CREATE TABLE History_Payment(
     total DECIMAL(10, 2),
     create_date DATETIME NOT NULL
 );
+
+CREATE TABLE Coupon(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    code nvarchar(20) not null,
+    value int not null,
+    create_date datetime not null,
+    end_date datetime not null
+);
 -- ========================================= END ==============================================
 
 -- ==================================== THÊM DỮ LIỆU ==========================================
