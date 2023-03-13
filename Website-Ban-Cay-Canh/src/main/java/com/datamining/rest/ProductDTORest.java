@@ -8,6 +8,7 @@ import lombok.var;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @CrossOrigin("*")
@@ -31,5 +32,10 @@ public class ProductDTORest {
         var product = productService.findById(id);
         var productDTO = ProductDTO.convert(product);
         return new ObjectResponse("success", productDTO, HttpStatus.OK.value());
+    }
+    @GetMapping("/all")
+    public List<Product> getAll1(){
+        List<Product> list = productService.findAll();
+        return list;
     }
 }

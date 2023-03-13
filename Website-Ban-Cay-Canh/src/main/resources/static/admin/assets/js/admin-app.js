@@ -9,6 +9,17 @@ app.config(function ($routeProvider) {
             templateUrl: "../admin/accounts/manager-accounts.html",
             controller: "accounts-ctrl"
         })
+        .when("/order", {
+            templateUrl: "../admin/tables-data.html",
+            controller: "order-ctrl"
+
+        })
+        .when("/order", {
+            templateUrl: "../admin/tables-data.html",
+            controller: "order-ctrl"
+
+        })
+
         .otherwise({
             templateUrl: "../admin/dashboard.html"
         })

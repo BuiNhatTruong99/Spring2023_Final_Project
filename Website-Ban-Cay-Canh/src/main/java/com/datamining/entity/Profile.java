@@ -15,12 +15,15 @@ import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
 @SuppressWarnings("serial")
-@Data
+@Getter
+@Setter
 @Entity
 public class Profile implements Serializable {
 	@Id

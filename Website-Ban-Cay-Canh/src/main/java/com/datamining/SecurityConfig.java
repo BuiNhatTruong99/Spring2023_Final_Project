@@ -20,6 +20,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.datamining.entity.Account;
 import com.datamining.service.AccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.web.AuthorizationRequestRepository;
+import org.springframework.security.oauth2.client.web.HttpSessionOAuth2AuthorizationRequestRepository;
+import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequest;
 
 @Configuration
 @EnableWebSecurity
@@ -80,5 +83,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.exceptionHandling()
 		.accessDeniedPage("/login/unauthoried");
+
+		http.oauth2Login()
+				.loginPage("/login/form")
+				.defaultSuccessUrl("/oauth2/login/success",true)
+				.failureUrl("/login/error")
+				.authorizationEndpoint()
+				.baseUri("/oauth2/authorization");
+
+
 	}
+
 }

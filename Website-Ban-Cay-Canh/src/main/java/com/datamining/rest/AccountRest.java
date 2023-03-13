@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -42,5 +43,12 @@ public class AccountRest {
         AccountDTO accountDTO = AccountDTO.convert(account1);
         return new ObjectResponse("success", accountDTO, HttpStatus.OK.value());
     }
+    @GetMapping("/")
+    public Object getAccount(@RequestParam("admin")Optional<Boolean> admin) {
+        if (admin.orElse(false)) {
+            return accountService.getAdministors();
+        }
+        return accountService.findAll();
 
+    }
 }
