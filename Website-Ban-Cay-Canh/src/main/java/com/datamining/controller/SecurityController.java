@@ -2,15 +2,19 @@ package com.datamining.controller;
 
 import com.datamining.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @CrossOrigin("*")
 public class SecurityController {
+	@Autowired
+	BCryptPasswordEncoder pe;
 	@RequestMapping("/login/form")
 	public String loginForm(Model model) {
 //		model.addAttribute("message", "Vui lòng đăng nhập!");
@@ -38,8 +42,13 @@ public class SecurityController {
 	AccountService accountService;
 	@RequestMapping("/oauth2/login/success")
 	public String success(OAuth2AuthenticationToken oauth2 ){
-	accountService.loginFromOAuth2(oauth2);
+		accountService.loginFromOAuth2(oauth2);
 		return "redirect:/product/list";
 	}
+	@GetMapping("/change-password")
+	public String changePassword(){
+
+		return "user/security/changePassword";
+}
 
 }

@@ -32,9 +32,6 @@ public class OrderRest {
 	private final OrderService orderService;
 	
 
-	
-
-
 	@GetMapping()
 	public ObjectResponse getAll() {
 		var orders = orderService.findAll();

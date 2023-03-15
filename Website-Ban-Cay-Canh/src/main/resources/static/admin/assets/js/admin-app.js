@@ -14,9 +14,9 @@ app.config(function ($routeProvider) {
             controller: "order-ctrl"
 
         })
-        .when("/order", {
-            templateUrl: "../admin/tables-data.html",
-            controller: "order-ctrl"
+        .when("/profile", {
+            templateUrl: "../admin/profile/index-profile.html",
+            controller: "profile-ctrl"
 
         })
 

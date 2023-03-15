@@ -63,4 +63,9 @@ public class HomeController {
 	{
 		return "../static/admin/index";
 	}
+
+//	@RequestMapping("/admin/profile")
+//	public  String profile(){
+//		return "../static/admin/profile/users-profile";
+//	}
 }

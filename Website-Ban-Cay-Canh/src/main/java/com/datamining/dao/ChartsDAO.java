@@ -1,6 +1,6 @@
 package com.datamining.dao;
 
-import com.datamining.entity.ChartRadar;
+
 import com.datamining.entity.Charts;
 import com.datamining.entity.Years;
 import org.springframework.data.jpa.repository.JpaRepository;
