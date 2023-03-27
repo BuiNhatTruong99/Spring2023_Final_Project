@@ -13,8 +13,5 @@ public interface CategoryService {
     // findidbyurl
     String findIdByUrlEquals(String url);
 
-    //findbyid
-    Category findById(Integer id);
-
 
 }

@@ -9,18 +9,6 @@ app.config(function ($routeProvider) {
             templateUrl: "../admin/accounts/manager-accounts.html",
             controller: "accounts-ctrl"
         })
-        .when("/product", {
-            templateUrl: "../admin/products/manager-products.html",
-            controller: "products-ctrl"
-        })
-        .when("/coupon", {
-            templateUrl: "../admin/coupon/manager-coupon.html",
-            controller: "coupon-ctrl"
-        })
-        .when("/myprofile",{
-            templateUrl: "../admin/profile/manager_profile.html",
-            controller: "profile-ctrl"
-        })
         .otherwise({
             templateUrl: "../admin/dashboard.html"
         })

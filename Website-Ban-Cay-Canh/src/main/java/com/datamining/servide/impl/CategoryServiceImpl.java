@@ -32,10 +32,5 @@ public class CategoryServiceImpl implements CategoryService {
         return cdao.findIdByUrlEquals(url);
     }
 
-    @Override
-    public Category findById(Integer id) {
-        return cdao.findById(id).orElse(null);
-    }
-
 
 }

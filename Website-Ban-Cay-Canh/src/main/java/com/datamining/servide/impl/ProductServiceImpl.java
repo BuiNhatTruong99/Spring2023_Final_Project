@@ -52,25 +52,5 @@ public class ProductServiceImpl implements ProductService {
         return pdao.findByPriceBetween(price1, price2);
     }
 
-    @Override
-    public Product create(Product product) {
-        return pdao.save(product);
-    }
-
-    @Override
-    public Product update(Integer id, Product product) {
-        return pdao.save(product);
-    }
-
-    @Override
-    public void delete(Integer id) {
-        pdao.deleteById(id);
-    }
-
-    @Override
-    public List<Product> findTop5Seller() {
-        return pdao.findTop5Seller();
-    }
-
 
 }

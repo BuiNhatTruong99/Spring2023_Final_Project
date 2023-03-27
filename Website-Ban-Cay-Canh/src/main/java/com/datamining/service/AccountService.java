@@ -1,8 +1,6 @@
 package com.datamining.service;
 
 import com.datamining.entity.Account;
-import com.datamining.entity.Profile;
-
 import java.util.List;
 
 public interface AccountService {
@@ -12,13 +10,6 @@ public interface AccountService {
     Account findById(Integer id);
     
     Account findByTk(String username);
-    
-	Account create(Account account);
 
     Account update(Account account);
-
-    void delete(Integer id);
-
-    List<Account> findByUsername(String username);
-
 }

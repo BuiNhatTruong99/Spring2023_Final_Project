@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -31,13 +29,14 @@ public class Profile implements Serializable {
 	private String fullname;
 	private String avatar;
 	private Boolean gender;
-	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birthday;
 	private String email;
 	private String phone;
 	private String address;
 
 	// Account
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL) // 1 account chi co 1 profile duy nhat
 	@JoinColumn(name = "user_id", referencedColumnName = "id")
     private Account account;

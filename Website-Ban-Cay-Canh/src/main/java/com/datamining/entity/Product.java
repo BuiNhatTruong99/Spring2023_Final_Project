@@ -7,32 +7,25 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.datamining.DTO.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import lombok.Data;
-import lombok.var;
 
 @SuppressWarnings("serial")
 @Data
 @Entity
 @Table(name = "Products")
-@JsonIgnoreProperties({"likes"})
 public class Product implements Serializable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
 	private Double price;
-	private Double quantity;
 	private String image;
 	private String description;
-	private Boolean status;
+	private String status;
 	private String url;
 	private Boolean is_delete = false;
 	@Temporal(TemporalType.DATE)
@@ -56,8 +49,9 @@ public class Product implements Serializable {
 	private Category categories;
 
 	// Wish_List
-	@ManyToMany(mappedBy = "likedProducts", fetch = FetchType.LAZY)
-	private List<Account> likes;
+//	@ManyToMany(mappedBy = "product_like", fetch = FetchType.LAZY)
+//	@JsonBackReference
+//	private Set<Account> likes;
 
 	// Order_Detail
 	@JsonIgnore
@@ -74,21 +68,4 @@ public class Product implements Serializable {
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private Set<ProductSize> ratings;
 
-
-	public static Product convert(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
-		var product = new Product();
-		product.setId(productDTO.getId());
-		product.setName(productDTO.getName());
-		product.setPrice(productDTO.getPrice());
-		product.setQuantity(productDTO.getQuantity());
-		product.setImage(productDTO.getImage());
-		product.setUrl(productDTO.getUrl());
-		product.setDescription(productDTO.getDescription());
-		product.setCreate_date(productDTO.getCreatedDate());
-		product.setUpdate_date(productDTO.getUpdatedDate());
-		product.setCategories(productDTO.getCategories());
-		product.setStatus(productDTO.getStatus());
-		return product;
-	}
 }

@@ -17,7 +17,7 @@ public class SecurityController {
 	@RequestMapping("/login/success")
 	public String loginSuccess(Model model) {
 		model.addAttribute("message", "Đăng nhập thành công!");
-		return "redirect:/home/index";
+		return "redirect:/product/list";
 	}
 
 	@RequestMapping("/login/error")
@@ -26,12 +26,6 @@ public class SecurityController {
 		return "user/security/loginQR";
 	}
 
-	@RequestMapping("/logoff/success")
-	public String logoffSuccess(Model model) {
-		model.addAttribute("message", "Bạn đã đăng xuất!");
-		return "user/security/loginQR";
-	}
-	
 	@RequestMapping("/login/unauthoried")
 	public String loginauthority(Model model) {
 		model.addAttribute("message", "Bạn không đủ quyền!");

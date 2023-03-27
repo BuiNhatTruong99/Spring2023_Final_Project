@@ -18,21 +18,6 @@ public class ProductRateServiceImpl implements ProductRateService {
     public List<ProductRate> findAllByProID(Integer id) {
         return dao.listRateByProID(id);
     }
-    
-	@Override
-	public List<ProductRate> findAllByFilter(Integer productId, Float rate) {
-		return dao.listRateByFilter(productId, rate);
-	}
-    
-	@Override
-	public List<ProductRate> findAllByFilter(Integer productId, Integer userId) {
-		return dao.listRateByFilter(productId, userId);
-	}
-	
-	@Override
-	public List<ProductRate> findAllByFilter(Integer productId, Integer userId, Float rate) {
-		return dao.listRateByFilter(productId, userId, rate);
-	}
 
 	@Override
 	public ProductRate create(ProductRate productRate) {

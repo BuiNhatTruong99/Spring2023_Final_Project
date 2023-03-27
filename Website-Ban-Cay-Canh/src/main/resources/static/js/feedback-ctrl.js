@@ -1,12 +1,13 @@
 app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 	$scope.items = [];
 	$scope.form = {};
-    //alert(productId);
+	
+    //alert(idProduct);
     
 	// Get all item from rest
 	$scope.initialize = function() {
 		// load productRates
-		$http.get(`/api/productRates/${productId}`).then(resp => {
+		$http.get(`/api/productRates/${idProduct}`).then(resp => {
 			$scope.items = resp.data.data;
 			$scope.productRate($scope.items);
 			$scope.reset();
@@ -23,42 +24,27 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 	}
 	
 	// lấy thông tin user, lấy id sp
-	$scope.create = function() {
-		$scope.form.user = {'id': 6};
-		$scope.form.product = {'id': productId};
+	$scope.create = function(items) {
+		$scope.form.user = {
+			"id": 6,
+			"fullname": "Đặng Hoàng Thái",
+			"avatar": "cust1.png",
+			"gender": true,
+			"birthday": "1992-03-10T17:00:00.000+00:00",
+			"email": "cust1@gmail.com",
+			"phone": "0984265835",
+			"address": "Lý Thường Kiệt, Phường 6, Quận Tân Bình, Tp Hồ Chí Minh"
+		};
+		$scope.form.product = {'id': idProduct};
 		var item = angular.copy($scope.form);
 		if(item.rate == 0) return $scope.message = 'Vui lòng chọn mức sao tương ứng với độ hài lòng của bạn!';
-		if(item.comment == '') return $scope.message = 'Vui lòng nhập đánh giá của bạn về sản phẩm!';
-		if($scope.checkComment()){
-			$http.post('/api/productRates', item).then(resp => {
-				$scope.initialize();
-				alert("Thêm đánh giá sản phẩm thành công")
-			}).catch(error => {
-				console.log("Error", error);
-			})
-			$scope.pager.first();
-		}
-	}
-	
-	$scope.rateFilter = 0;
-	
-	$scope.commentFilter = function() {
-		const comment = $scope.selectCommentFilter;
-		const rate = $scope.rateFilter;
-		const userId = (comment == 0)? 0 : 6;
-		if(comment == 0 && rate == 0) {
-			$http.get(`/api/productRates/${productId}`).then(resp => {
-				$scope.items = resp.data.data;
-			}).catch(error => {
-				console.log("Error",error);
-			});
-		} else {
-			$http.get(`/api/productRates?productId=${productId}&userId=${userId}&rate=${rate}`).then(resp => {
-				$scope.items = resp.data.data;
-			}).catch(error => {
-				console.log("Error",error);
-			});
-		}
+		if(item.comment == '') return $scope.message = 'Vui lòng nhập đánh giá!';
+		$http.post('/api/productRates', item).then(resp => {
+			$scope.items.push(resp.data.data);
+			$scope.initialize();
+		}).catch(error => {
+			console.log("Error", error);
+		})
 		$scope.pager.first();
 	}
 	
@@ -68,21 +54,6 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 			rate: 0,
 			comment: '',
 		}
-	}
-	
-	$scope.checkComment = function() {
-	  var badWords = ["cc", "dmm", "dm", "cl"]; // danh sách từ ngữ xấu
-	  var words = $scope.form.comment.split(" "); // tách comment thành các từ
-	
-	  for (var i = 0; i < words.length; i++) {
-	    if (badWords.indexOf(words[i]) >= 0) { // kiểm tra từng từ trong comment có nằm trong danh sách từ ngữ xấu không
-	      $scope.message = "Bình luận không được chứa từ ngữ xấu: <span class='bad-word'>" + words[i] + "</span>";
-	      return false;
-	    }
-	  }
-	
-	  $scope.message = "";
-	  return true;
 	}
 	
 	$scope.calculateAverageRate = function(array) {

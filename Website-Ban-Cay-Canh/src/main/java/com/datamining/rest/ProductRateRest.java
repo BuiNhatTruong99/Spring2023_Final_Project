@@ -1,6 +1,5 @@
 package com.datamining.rest;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import com.datamining.entity.ProductRate;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.var;
@@ -30,28 +28,15 @@ public class ProductRateRest {
 	@GetMapping("{id}")
     public ObjectResponse getAllProRateByID(@PathVariable("id") Integer id){
         var productRates = proRateService.findAllByProID(id);
-        return new ObjectResponse("success", productRates, HttpStatus.OK.value());
-    }
-	
-	@GetMapping
-    public ObjectResponse getAllProRateByUser(@RequestParam("productId") Integer productId, 
-    											@RequestParam("userId") Integer userId,
-    											@RequestParam("rate") Float rate){
-		List<ProductRate> productRates = null;
-		if (userId == 0) {
-			productRates = proRateService.findAllByFilter(productId, rate);
-		}else if (rate == 0) {
-			productRates = proRateService.findAllByFilter(productId, userId);
-		} else {
-			productRates = proRateService.findAllByFilter(productId, userId, rate);
-		}
-        
+//        var productRatesDTO = productRates.stream()
+//        		.map(ProductRateDTO::convert)
+//        		.collect(Collectors.toList());
         return new ObjectResponse("success", productRates, HttpStatus.OK.value());
     }
 	
 	@PostMapping
 	public ObjectResponse create(@RequestBody ProductRate productRate) {
 		var proRate = proRateService.create(productRate);
-		return new ObjectResponse("success", "Thêm đánh giá thành công", HttpStatus.OK.value());
+		return new ObjectResponse("success", proRate, HttpStatus.OK.value());
 	}
 }
