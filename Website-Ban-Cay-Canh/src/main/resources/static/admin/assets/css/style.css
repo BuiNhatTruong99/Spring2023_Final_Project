@@ -1310,7 +1310,6 @@ h6 {
     z-index: 9999;
     width: 400px;
     float: right;
-
 }
 .pagetitle .search-form input {
   border: 0;
@@ -1341,6 +1340,22 @@ h6 {
 
 .size-img {
 	width: 80px;
+}
+
+.textarea1 {
+	padding-top: 6px;
+}
+
+.btn-order {
+  padding: 8px 80px;
+}
+
+.mt-n1 {
+  margin-top: -0.2rem !important;
+}
+
+.mt-n2 {
+  margin-top: -0.4rem !important;
 }
 
 /**

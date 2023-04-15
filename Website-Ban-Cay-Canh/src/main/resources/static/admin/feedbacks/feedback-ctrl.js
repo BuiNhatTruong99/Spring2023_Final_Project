@@ -2,7 +2,6 @@ app.controller('feedback-ctrl', function($scope, $http) {
 	$scope.items = [];
 	$scope.itemRates = [];
 	$scope.form = {};
-    let user_id = document.getElementById('user_id').value;
     
 	// Get all item from rest
 	$scope.initialize = function() {
@@ -16,9 +15,9 @@ app.controller('feedback-ctrl', function($scope, $http) {
 	}
 	
 	$scope.listRates = function(items) {
-		for (let i = 0; i < $scope.items.length; i++) {
-	        var totalRate = $scope.productRate($scope.items[i].productRates);
-	        $scope.itemRates.push({ "item": $scope.items[i], "totalRate": totalRate });
+		for (let i = 0; i < items.length; i++) {
+	        var totalRate = $scope.productRate(items[i].productRates);
+	        $scope.itemRates.push({ "item": items[i], "totalRate": totalRate });
 	    }
 	}
 	

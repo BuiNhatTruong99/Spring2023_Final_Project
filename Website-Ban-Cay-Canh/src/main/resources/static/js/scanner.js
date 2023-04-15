@@ -34,7 +34,7 @@ function fecthRequest(file) {
         let text = result[0].symbol[0].data;
 
         if (!text)
-            return p.innerText = "Couldn't Scan QR Code....";
+            return p.innerText = "Không thể quét QR Code....";
 
         scannerDiv.classList.add("active");
         form.classList.add("active-img");
@@ -54,7 +54,7 @@ let scanner;
 camera.addEventListener('click', () => {
     camera.style.display = "none";
     form.classList.add("pointerEvents")
-    p.innerText = "Scanning QR Code...";
+    p.innerText = "Đang kết nối Camera...";
 
 
     scanner = new Instascan.Scanner({ video: video });
@@ -67,7 +67,7 @@ camera.addEventListener('click', () => {
                     stopCam.style.display = "inline-block";
                 })
             } else {
-                console.log("No camera found")
+                console.log("Không kết nối được với Camera!")
             }
         })
         .catch(function (e) {
@@ -86,7 +86,7 @@ stopCam.addEventListener("click", () => stopScan());
 
 
 function stopScan() {
-    p.innerText = "Upload Scan QR Code....";
+    p.innerText = "Tải lên QR Code để quét";
 
     camera.style.display = "inline-block";
     stopCam.style.display = "none"

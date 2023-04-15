@@ -136,19 +136,18 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #9053c7;
-  background-image: url('../images/Slide/analysis.png')
+  background-image: url('../images/Slide/analysis.png');
 }
 
 .wrap-login100 {
   width: 960px;
   background: #fff;
-  border-radius: 10px;
+  border-radius: 20px;
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 150px 130px 150px 95px;
+  padding: 120px 110px 120px 95px;
 }
 
 /*------------------------------------------------------------------

@@ -428,18 +428,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Revenue Statistics</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Charts</li>
-          <li class="breadcrumb-item active">Chart.js</li>
-        </ol>
-      </nav>
+      <h1>Thống kê</h1>
     </div><!-- End Page Title -->
     <div class="row">
       <div class="col-3 px-4" style="line-height: 40px; font-weight: bold;">
-        <p>Select year for statistical:</p>
+        <p>Chọn năm muốn thống kê:</p>
       </div>
       <div class="col-8 p-0">
         <form action="statistical" method="get">
@@ -450,7 +443,7 @@
               </select>
             </div>
             <div class="col-4">
-              <button type="submit" class="btn btn-primary">Filter</button>
+              <button type="submit" class="btn btn-primary">Lọc</button>
             </div>
           </div>
 
@@ -466,7 +459,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total Revenue By Month</h5>
+              <h5 class="card-title">Tổng doanh thu theo tháng</h5>
 
               <!-- Line Chart -->
               <canvas id="lineChart" style="max-height: 400px;"></canvas>
@@ -477,7 +470,7 @@
                     data: {
                       labels: monthChart,
                       datasets: [{
-                        label: 'Line Chart',
+                        label: 'Doanh thu',
                         data: valueChart,
                         fill: true,
                         borderColor: 'rgb(75, 192, 192)',
@@ -503,7 +496,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total Bill By Month</h5>
+              <h5 class="card-title">Tổng hóa đơn theo tháng</h5>
 
               <!-- Bar Chart -->
               <canvas id="barChart" style="max-height: 400px;"></canvas>
@@ -514,7 +507,7 @@
                     data: {
                       labels: monthChart,
                       datasets: [{
-                        label: 'Bar Chart',
+                        label: 'Hóa đơn',
                         data: order_value,
                         backgroundColor: [
                           'rgba(255, 99, 132, 0.2)',
@@ -556,7 +549,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total Revenue By Category</h5>
+              <h5 class="card-title">Tổng doanh thu theo danh mục</h5>
 
               <!-- Radar Chart -->
               <canvas id="radarChart" style="max-height: 400px;"></canvas>
@@ -567,7 +560,7 @@
                     data: {
                       labels: cate_name,
                       datasets: [{
-                        label: 'First Dataset',
+                        label: 'Doanh thu',
                         data: value_cate,
                         fill: true,
                         backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -597,7 +590,7 @@
         <div class="col-lg-6">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">Total Products Sold By Category</h5>
+              <h5 class="card-title">Tổng số sản phẩm đã bán theo danh mục</h5>
 
               <!-- Polar Area Chart -->
               <canvas id="polarAreaChart" style="max-height: 400px;"></canvas>

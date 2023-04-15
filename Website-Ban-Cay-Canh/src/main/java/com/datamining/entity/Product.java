@@ -23,7 +23,7 @@ import lombok.var;
 @Data
 @Entity
 @Table(name = "Products")
-@JsonIgnoreProperties({"likes", "oderDetails", "productRates"})
+@JsonIgnoreProperties({"likes", "productRates"})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
 public class Product implements Serializable {
 	@Id
@@ -62,6 +62,7 @@ public class Product implements Serializable {
 	private List<Account> likes;
 
 	// Order_Detail
+	@JsonIgnore
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private List<OrderDetail> oderDetails;
 
