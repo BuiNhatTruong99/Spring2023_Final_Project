@@ -7,9 +7,11 @@ import com.datamining.entity.Order;
 
 
 public interface OrderService {
-	List <Order> findAll();
+	List<Order> findAll();
 
+	List<Order> findAllByCompleted();
 
-	
+	List<Order> findAllByCanceled();
 
+	Order update(Integer id, Order order);
 }

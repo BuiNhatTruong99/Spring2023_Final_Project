@@ -23,12 +23,16 @@ app.config(function ($routeProvider) {
         })
 
         .when("/order", {
-            templateUrl: "../admin/tables-data.html",
+            templateUrl: "../admin/orders/manager-orders.html",
             controller: "order-ctrl"
         })
         .when("/profile", {
             templateUrl: "../admin/profiles/index-profile.html",
             controller: "profiles-ctrl"
+        })
+        .when("/authority",{
+            templateUrl: "../admin/feedbacks/manager-authority.html",
+            controller: "authority-ctrl"
         })
         .when("/feedback",{
             templateUrl: "../admin/feedbacks/manager-feedbacks.html",
@@ -42,3 +46,10 @@ app.config(function ($routeProvider) {
             templateUrl: "../admin/dashboard.html"
         })
 })
+
+app.filter('vndFilter', function () { 
+	return function (x) {
+				x = x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+				return x.toString().split('.').join(','); 
+		   }; 
+});

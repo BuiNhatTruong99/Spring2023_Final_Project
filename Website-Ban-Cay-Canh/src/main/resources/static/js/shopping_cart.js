@@ -2,10 +2,10 @@ const app = angular.module('shoppingCart', ['ngSanitize']);
 app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.products = [];
     $scope.form = {};
-    var salePd = document.getElementById("saleP");
-    var paragraphValue = parseFloat(salePd.textContent);
+    //var salePd = document.getElementById("saleP");
+    //var paragraphValue = parseFloat(salePd.textContent);
 
-    $scope.CouponSale = paragraphValue;
+    //$scope.CouponSale = paragraphValue;
     $scope.cates = function (){
         $http.get('/api/category').then(resp => {
             $scope.cates = resp.data;

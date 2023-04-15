@@ -27,12 +27,12 @@ public class OrderDetail implements Serializable {
 	private Float sale;
 
 	// order_id
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "order_id")
 	private Order order;
 
 	// product_id
-	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Product product;

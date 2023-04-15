@@ -16,12 +16,24 @@ public class OrderServiceIpml implements OrderService {
 	OrderDAO dao;
 
 	public List<Order> findAll() {
-
-		return dao.findAll();
+		return dao.findAllOrders();
 	}
 
-
+	@Override
+	public List<Order> findAllByCompleted() {
+		return dao.findAllByCompleted();
 	}
+
+	@Override
+	public List<Order> findAllByCanceled() {
+		return dao.findAllByCanceled();
+	}
+
+	@Override
+	public Order update(Integer id, Order order) {
+		return dao.save(order);
+	}
+}
 
 
 
