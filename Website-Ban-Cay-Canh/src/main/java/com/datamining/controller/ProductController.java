@@ -8,15 +8,11 @@ import com.datamining.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -65,12 +61,21 @@ public class ProductController {
         return "user/layout/index";
     }
 
-    @PostMapping("/products_filter")
-    public String filter(Model model, @RequestParam("count") String price) {
+    @GetMapping("/filter")
+    public String filter(Model model, @RequestParam(value = "count") String price, HttpServletRequest req) {
+        String urlHead = req.getHeader("Referer");
+        String url = urlHead.substring(urlHead.lastIndexOf("/") + 1); // lấy url của category
+        System.out.println(price);
         String[] arr = price.split(" ");
         Double price1 = Double.parseDouble(arr[0]);
         Double price2 = Double.parseDouble(arr[1]);
-        List<Product> list = pService.findByPriceBetween(price1, price2);
+        if(url.equals("home")) {
+            List<Product> list = pService.findByPriceBetween(price1, price2);
+            model.addAttribute("items", list);
+            return "user/layout/index";
+        }
+
+        List<Product> list = pService.findByPriceBetweenByCate(price1, price2, url);
         model.addAttribute("items", list);
         return "user/layout/index";
     }

@@ -225,10 +225,11 @@ $(document).ready(function ($) {
 
     $('#bwp_form_filter_product').submit(function(e) {
         e.preventDefault(); // Prevents the form from submitting normally
+
         var url = $(this).attr('action'); // Gets the URL from the data-url attribute
         var formData = $(this).serialize(); // Serializes the form data
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: url,
             data: formData,
             success: function(data) {
@@ -236,7 +237,7 @@ $(document).ready(function ($) {
                 // Replaces the contents of #product__items with the response data
             }
         });
-        window.history.pushState("", "", categoryUrl);
+        window.history.pushState("", "",  url);
     });
 
     $(document).on('click', '.page-link', function (event) {

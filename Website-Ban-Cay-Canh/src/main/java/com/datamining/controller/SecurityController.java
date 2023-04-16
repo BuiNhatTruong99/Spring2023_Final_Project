@@ -20,7 +20,7 @@ public class SecurityController {
 	@RequestMapping("/login/success")
 	public String loginSuccess(Model model) {
 		model.addAttribute("message", "Đăng nhập thành công!");
-		return "redirect:/home/index";
+		return "redirect:/home";
 	}
 
 	@RequestMapping("/login/error")

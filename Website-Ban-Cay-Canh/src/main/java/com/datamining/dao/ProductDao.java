@@ -2,8 +2,6 @@ package com.datamining.dao;
 
 import com.datamining.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import com.datamining.entity.Product;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -21,8 +19,10 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 
 
     //find product bettwen two price
-    @Query(value="select * from Products p left join Product_Size ps on p.id = ps.product_id where (p.price >= ?1 and p.price <= ?2) "
-    		+ "or (ps.price >= ?1 and ps.price <= ?2) order by p.price asc", nativeQuery = true)
+    @Query(value="select DISTINCT  p.* from Products p left join Product_Size ps on p.id = ps.product_id  join categories c on p.categories_id = c.id where (p.price >= ?1 and p.price <= ?2)  or (ps.price >=  ?1 and ps.price <= ?2)  and c.url = ?3 order by p.price asc;\n", nativeQuery = true)
+    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url);
+
+    @Query(value="select DISTINCT p.* from Products p left join Product_Size ps on p.id = ps.product_id where (p.price >= ?1 and p.price <= ?2)  or (ps.price >=  ?1 and ps.price <= ?2) order by p.price asc", nativeQuery = true)
     List<Product> findByPriceBetween(Double price1, Double price2);
 
     // Top 5 seller

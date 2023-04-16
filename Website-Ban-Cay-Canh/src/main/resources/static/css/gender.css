@@ -8,7 +8,7 @@
 body{
   width: 100%;
   height: 100vh;
-  background-color: #ff676d;
+  background-image: url('../images/Slide/analysis.png');
   display: flex;
   align-items: center;
   justify-content: center;

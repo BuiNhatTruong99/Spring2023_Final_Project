@@ -1,27 +1,23 @@
 package com.datamining.controller;
 
 
+import com.datamining.entity.Account;
+import com.datamining.entity.Product;
+import com.datamining.service.AccountService;
 import com.datamining.service.ProductService;
-
-import java.util.List;
-import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.web.bind.annotation.*;
-
-
-import com.datamining.entity.Account;
-import com.datamining.entity.Product;
-import com.datamining.service.AccountService;
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
@@ -33,7 +29,7 @@ public class HomeController {
 	ProductService pService;
 
 	
-	@RequestMapping({"/", "/home/index"})
+	@RequestMapping({"/", "/home"})
 	public String home(Model model, HttpServletRequest req,
 					   @RequestParam("page") Optional<Integer> page) {
 		Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page

@@ -1,37 +1,34 @@
 package com.datamining.entity;
 
-import java.io.Serializable;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.*;
-
 import com.datamining.DTO.ProductDTO;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
+import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.var;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Data
 @Entity
 @Table(name = "Products")
 @JsonIgnoreProperties({"likes", "productRates"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class , property = "id")
 public class Product implements Serializable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String name;
+	@NotNull
 	private Double price;
+	@NotNull
 	private Integer quantity;
+	@NotNull
 	private String image;
 	private String description;
 	private Boolean status;
@@ -74,6 +71,10 @@ public class Product implements Serializable {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
 	private List<ProductSize> productSizes;
+
+	public Product() {
+
+	}
 
 
 	public static Product convert(ProductDTO productDTO) {
