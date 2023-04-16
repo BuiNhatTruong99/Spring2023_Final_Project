@@ -70,14 +70,49 @@
 			</div>
 		</div>
 	</div>
-	<th:block >
-		<ul class="pagination ">
-			<li class="page-item"><a class="page-link" th:href="@{/home/index?page=0}">First </a></li>
-			<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
-									 th:href="@{|/home/index?page=${items.number -1} |}" >Previous </a></li>
-			<li class="page-item"><a class="page-link" th:if="${items.number < 8}"
-									 th:href="@{|/home/index?page=${items.number + 1} |}" >Next</a></li>
-			<li class="page-item"><a class="page-link" th:href="@{|/home/index?page=${items.totalPages - 1} |}">Last</a></li>
-		</ul>
-	</th:block>
+	<div>
+		<th:block th:if="!${url} and !${search} and !${filt}">
+			<ul class="pagination ">
+				<li class="page-item"><a class="page-link" th:href="@{/home/index?page=0}">First </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
+										 th:href="@{|/home/index?page=${items.number -1} |}" >Previous </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
+										 th:href="@{|/home/index?page=${items.number + 1} |}" >Next</a></li>
+				<li class="page-item"><a class="page-link" th:href="@{|/home/index?page=${items.totalPages - 1} |}">Last</a></li>
+			</ul>
+		</th:block>
+		<th:block th:if="${url}">
+			<ul class="pagination ">
+				<li class="page-item"><a class="page-link" th:href="@{/${url}?page=0}">First </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
+										 th:href="@{|/${url}?page=${items.number -1} |}" >Previous </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
+										 th:href="@{|/${url}?page=${items.number + 1} |}" >Next</a></li>
+				<li class="page-item"><a class="page-link" th:href="@{|/${url}?page=${items.totalPages - 1} |}">Last</a></li>
+			</ul>
+		</th:block>
+
+		<th:block th:if="${search}">
+			<ul class="pagination ">
+				<li class="page-item"><a class="page-link" th:href="@{|/product/search?keyword=${search}&&page=0|}">First </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
+										 th:href="@{|/product/search?keyword=${search}&&page=${items.number -1} |}" >Previous </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
+										 th:href="@{|/product/search?keyword=${search}&&page=${items.number + 1} |}" >Next</a></li>
+				<li class="page-item"><a class="page-link" th:href="@{|/product/search?keyword=${search}&&page=${items.totalPages - 1} |}">Last</a></li>
+			</ul>
+		</th:block>
+
+		<th:block th:if="${filt}">
+			<ul class="pagination ">
+				<li class="page-item"><a class="page-link" th:href="@{|/products_filter?count=${filt}&&page=0|}">First </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
+										 th:href="@{|/products_filter?count=${filt}&&page=${items.number -1} |}" >Previous </a></li>
+				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
+										 th:href="@{|/products_filter?count=${filt}&&page=${items.number + 1} |}" >Next</a></li>
+				<li class="page-item"><a class="page-link" th:href="@{|/products_filter?count=${filt}&&page=${items.totalPages - 1} |}">Last</a></li>
+			</ul>
+		</th:block>
+	</div>
+
 </div>

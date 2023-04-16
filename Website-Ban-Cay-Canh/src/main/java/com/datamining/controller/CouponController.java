@@ -7,6 +7,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -16,7 +17,7 @@ import java.time.Instant;
 import java.util.Date;
 
 @Controller
-@RequestMapping("/coupon")
+
 public class CouponController {
     @Autowired
     CounponService service;
@@ -25,8 +26,8 @@ public class CouponController {
 //    Date datenow = new Date();
 //    String date = sdf.format(datenow);
 
-    @GetMapping()
-    public String getCouponBy(Model model, @RequestParam("code") String code,HttpServletRequest request) {
+    @RequestMapping("/coupon")
+    public String getCouponBy(Model model, @RequestParam("code") String code) {
         try {
             Coupon cp = service.findbyCode(code);
 //            System.out.println(code);

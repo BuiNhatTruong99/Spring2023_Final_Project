@@ -39,7 +39,6 @@ public class HomeController {
 		Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
 
 		Page<Product> list = pService.findAllByPage(pageable);
-//		List<Product> list = pService.findAll();
 		model.addAttribute("items", list);
 		List<Product> bestSale = pService.findTop5Seller();
 		model.addAttribute("bestSale", bestSale);
@@ -74,8 +73,9 @@ public class HomeController {
 	}
 
 	@RequestMapping("/cart/detail")
-	public String cart_detail()
+	public String cart_detail(Model model)
 	{
+		model.addAttribute("sale",0);
 		return "user/cart/cart-detail";
 	}
 	

@@ -1,6 +1,8 @@
 package com.datamining.dao;
 
 import com.datamining.entity.Product;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.datamining.entity.Product;
@@ -31,5 +33,21 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     
     @Query(value="select p.* from products p left join product_rate pr on p.id = pr.product_id group by p.id order by avg(rate) desc, count(*) desc", nativeQuery = true)
     List<Product> selectAllFeedbacks();
+
+
+    // page
+
+    @Query(value="SELECT * FROM products WHERE categories_id=?1", nativeQuery = true)
+    Page<Product> findByCategoryIdByPage(String cid, Pageable pageable);
+
+    @Query(value="SELECT * FROM products WHERE name like %?1%", nativeQuery = true)
+    Page<Product> findByKeywordPage(String keyword, Pageable pageable);
+
+
+    //find product bettwen two price
+    @Query(value="select * from Products where (price >= ?1 and price <= ?2) "
+            + "order by price asc", nativeQuery = true)
+    Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable);
+
 
 }

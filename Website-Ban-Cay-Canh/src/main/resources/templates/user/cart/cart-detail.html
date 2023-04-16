@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/cart-detail.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../lib/fontawesome-free-6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/form_payment.css">
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
@@ -73,14 +74,11 @@
                                     </tbody>
                                 </table>
                             </div>
-<!--                            <div class="cart_submit">-->
-<!--                                <button type="button">Cập nhập giỏ hàng</button>-->
-<!--                            </div>-->
                         </div>
-
                     </div>
                 </div>
             </form>
+<<<<<<< Updated upstream
             <div class="coupon_area">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -93,35 +91,107 @@
                                     <button type="submit" >ÁP Dụng</button>
                                     <br>
                                     <span>[[${message}]]</span>
+=======
+            <div class="row">
+                <div class="col-md-4 order-md-2 mb-4 coupon-area">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Tổng tiền giỏ hàng</span>
+
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div>
+                                <h6 class="my-0">Tổng tiền dự tính</h6>
+                            </div>
+                            <span class="text-muted subtotal">{{cart.amount |
+                                    vndFilter}}</span>
+                        </li>
+                        <div id="coupon-area">
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Giảm giá</h6>
+>>>>>>> Stashed changes
                                 </div>
+                                <span class="text-muted" id="saleP">[[${sale}]]%</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Tổng tiền cần phải trả</span>
+                                <strong id="total">{{cart.amount -( cart.amount* (CouponSale/100)) |
+                                    vndFilter}}</strong>
+                            </li>
+                            <form class="card p-2 " id="coupon-apply" action="/coupon" method="POST">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="code" placeholder="Mã giảm giá">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-secondary">Áp dụng</button>
+                                    </div>
+                                </div>
+                                <span>[[${message}]]</span>
                             </form>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6">
-                        <div class="coupon_code">
-                            <h3>Tổng tiền giỏ hàng</h3>
-                            <div class="coupon_inner">
-                                <div class="cart_subtotal">
-                                    <p>Tổng tiền dự tính</p>
-                                    <p class="cart_amount" >{{cart.amount |
-                                        vndFilter}}</p>
+                    </ul>
+
+                </div>
+                <div class="col-md-8 order-md-1">
+                    <h4 class="mb-3">Thông tin nhận hàng</h4>
+                    <form class="needs-validation" validate>
+                        <div class="mb-3">
+                            <label for="name">Họ và tên</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
                                 </div>
-                                <div class="cart_subtotal">
-                                    <p>Giảm giá</p>
-                                    <p class="cart_amount" id="saleP">[[${sale}]]%</p>
-                                </div>
-                                <hr>
-                                <div class="cart_subtotal">
-                                    <p>Tổng tiền cần phải trả</p>
-                                    <p class="cart_amount">{{cart.amount -( cart.amount* (CouponSale/100)) |
-                                        vndFilter}}</p>
-                                </div>
-                                <div class="checkout_btn">
-                                    <a href="">Thanh toán</a>
+                                <input type="text" class="form-control" id="name" placeholder="Nhập họ và tên"  required>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    Vui lòng nhập họ và tên
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <div class="mb-3">
+                            <label for="phone">Số điện thoại</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                </div>
+                                <input type="number" class="form-control" id="phone" placeholder="Nhập số điện thoại..." pattern="[0-9]"  required>
+                                <div class="invalid-feedback" style="width: 100%;">
+                                    Vui lòng nhập số điện thoại
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mb-3">
+                            <label for="address">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" placeholder="1234 Sài gòn" required>
+                            <div class="invalid-feedback">
+                               Vui lòng nhập địa chỉ.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="note">Ghi chú</label>
+                            <textarea type="text" class="form-control" id="note" placeholder="..." rows="4" cols="50"></textarea>
+
+                        </div>
+
+                        <hr class="mb-4">
+
+
+                        <h4 class="mb-3">Thanh toán</h4>
+
+                        <div class="d-block my-3">
+                            <div class="custom-control custom-radio">
+                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
+                                <label class="custom-control-label" for="credit">Tiền mặt</label>
+                            </div>
+
+                            <div class="custom-control custom-radio">
+                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
+                                <label class="custom-control-label" for="paypal">Thanh toán online</label>
+                            </div>
+                        </div>
+                        <hr class="mb-4">
+                        <button class="btn btn-primary btn-lg btn-block" type="submit">Mua hàng</button>
+                    </form>
                 </div>
             </div>
         </div>

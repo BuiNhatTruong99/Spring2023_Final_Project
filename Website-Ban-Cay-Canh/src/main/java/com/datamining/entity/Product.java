@@ -18,6 +18,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import lombok.Data;
 import lombok.var;
+import org.springframework.security.core.Transient;
 
 @SuppressWarnings("serial")
 @Data
