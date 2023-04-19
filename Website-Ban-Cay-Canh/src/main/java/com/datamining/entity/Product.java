@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.internal.NotNull;
 import lombok.Data;
 import lombok.var;
+import org.springframework.security.core.Transient;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -6,9 +6,15 @@ import com.datamining.service.AccountService;
 import com.datamining.service.CategoryService;
 import com.datamining.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -25,16 +31,19 @@ public class ProductController {
     @Autowired
     CategoryService cService;
 
-    @RequestMapping("/{cate}")
-    public String list(Model model,@PathVariable("cate") Optional<String> cate) {
+    @GetMapping("/{cate}")
+    public String list(Model model,@PathVariable("cate") Optional<String> cate,
+                       @RequestParam("page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
         if(cate.isPresent()) {
             String id = cService.findIdByUrlEquals(cate.get());
-            List<Product> list = pService.findByCategoryId(id);
+            Page<Product> list = pService.findByCategoryIdByPage(id,pageable);
             model.addAttribute("items", list);
+            model.addAttribute("url",cate.get());
         } else {
-            List<Product> list = pService.findAll();
+            Page<Product> list = pService.findAllByPage(pageable);
             model.addAttribute("items", list);
-            
+
         }
         List<Product> bestSale = pService.findTop5Seller();
 
@@ -55,9 +64,12 @@ public class ProductController {
     }
 
     @RequestMapping("/product/search")
-    public String search(Model model, @RequestParam("keyword") String keyword) {
-        List<Product> list = pService.findByKeyword(keyword);
+    public String search(Model model, @RequestParam("keyword") String keyword,
+                         @RequestParam("page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
+        Page<Product> list = pService.findByKeywordPage(keyword,pageable);
         model.addAttribute("items", list);
+        model.addAttribute("search",keyword);
         return "user/layout/index";
     }
 
@@ -76,7 +88,16 @@ public class ProductController {
         }
 
         List<Product> list = pService.findByPriceBetweenByCate(price1, price2, url);
+    @RequestMapping("/products_filter")
+    public String filter(Model model, @RequestParam("count") String price,
+                         @RequestParam("page") Optional<Integer> page) {
+        Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
+        String[] arr = price.split(" ");
+        Double price1 = Double.parseDouble(arr[0]);
+        Double price2 = Double.parseDouble(arr[1]);
+        Page<Product> list = pService.findByPriceBetweenPage(price1, price2, pageable);
         model.addAttribute("items", list);
+        model.addAttribute("filt",price);
         return "user/layout/index";
     }
 }

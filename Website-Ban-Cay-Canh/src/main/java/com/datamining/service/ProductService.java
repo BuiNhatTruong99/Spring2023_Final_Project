@@ -37,4 +37,10 @@ public interface ProductService {
     // page
 
     Page<Product> findAllByPage(Pageable page);
+
+    Page<Product> findByCategoryIdByPage(String cid,Pageable page);
+
+    Page<Product> findByKeywordPage(String keyword, Pageable pageable);
+
+    Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable);
 }

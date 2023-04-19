@@ -2,6 +2,15 @@ const app = angular.module('shoppingCart', ['ngSanitize']);
 app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.products = [];
     $scope.form = {};
+
+    $scope.order = function (){
+        $http.get('/api/order').then(resp => {
+            $scope.order = resp.data;
+        })
+    };
+    $scope.order();
+
+
     $scope.cates = function (){
         $http.get('/api/category').then(resp => {
             $scope.cates = resp.data;
@@ -79,9 +88,9 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.cart.loadFromLocalStorage();
 
     var salePd = document.getElementById("saleP");
-    if (salePd == null)
+    if (salePd == null || salePd == undefined)
     {
-        salePd = 0;
+        $scope.CouponSale = 0;
     }else {
         var paragraphValue = parseFloat(salePd.textContent);
         $scope.CouponSale = paragraphValue;

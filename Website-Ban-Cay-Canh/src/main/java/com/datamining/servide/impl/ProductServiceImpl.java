@@ -90,5 +90,20 @@ public class ProductServiceImpl implements ProductService {
         return pdao.findAll(page);
     }
 
+    @Override
+    public Page<Product> findByCategoryIdByPage(String cid, Pageable page) {
+        return pdao.findByCategoryIdByPage(cid,page);
+    }
+
+    @Override
+    public Page<Product> findByKeywordPage(String keyword, Pageable pageable) {
+        return pdao.findByKeywordPage(keyword,pageable);
+    }
+
+    @Override
+    public Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable) {
+        return pdao.findByPriceBetweenPage(price1,price2,pageable);
+    }
+
 
 }
