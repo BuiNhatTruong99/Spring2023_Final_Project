@@ -32,6 +32,8 @@ public class Order implements Serializable {
 	private Integer id;
 	private String phone;
 	private String address;
+	private Integer coupon;
+	private Double ship;
 	private String note;
 	private Double total;
 	@Temporal(TemporalType.DATE)

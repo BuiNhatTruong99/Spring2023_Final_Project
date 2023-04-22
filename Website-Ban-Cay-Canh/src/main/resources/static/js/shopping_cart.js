@@ -3,14 +3,6 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.products = [];
     $scope.form = {};
 
-    $scope.order = function (){
-        $http.get('/api/order').then(resp => {
-            $scope.order = resp.data;
-        })
-    };
-    $scope.order();
-
-
     $scope.cates = function (){
         $http.get('/api/category').then(resp => {
             $scope.cates = resp.data;
@@ -94,6 +86,77 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     }else {
         var paragraphValue = parseFloat(salePd.textContent);
         $scope.CouponSale = paragraphValue;
+    }
+
+
+    //payment
+
+    $scope.formprofile = {};
+    $scope.userid =[];
+    var user_id = document.getElementById('user_id').value;
+    if(user_id == null)
+    {
+        user_id = 0;
+    }else
+    {
+        user_id = document.getElementById('user_id').value;
+        $scope.userid = user_id;
+    }
+    $scope.payment= {};
+
+    // $scope.orderstatus = 1;
+    $scope.initialize = function() {
+        $http.get(`/profile/${user_id}`).then(resp => {
+            $scope.profile = resp.data;
+            // console.log($scope.profile)
+            $scope.formprofile = angular.copy($scope.profile);
+        })
+        $http.get('/api/payment').then(resp => {
+            $scope.payment = resp.data;
+        })
+        // $http.get('/api/orderStatus').then(resp => {
+        //     $scope.orderstatus = resp.data;
+        // })
+
+    }
+    $scope.initialize();
+    $scope.order = {};
+    $scope.shipmoney = 25000;
+    $scope.clickship = function ()
+    {
+        var selectedShip = parseInt(document.querySelector('input[name="ship"]:checked').value);
+        $scope.shipmoney = selectedShip;
+    }
+
+
+
+    $scope.create = function ()
+    {
+        var saleP = document.getElementById("saleP");
+        var saleText = saleP.textContent;
+        var saleValue = saleText.replace("%", "");
+        saleP.textContent = saleValue;
+
+        $scope.order.phone = document.getElementById('phone').value;
+        $scope.order.address = document.getElementById('address').value;
+        $scope.order.coupon = saleValue;
+        $scope.order.ship = parseInt(document.querySelector('input[name="ship"]:checked').value);
+        // alert($scope.order.ship)
+        $scope.order.total = document.getElementById('totalmoney').textContent;
+        // $scope.order.status.id = $scope.orderstatus = 1;
+        // $scope.order.profile_id =  document.getElementById('user_id').value;
+
+        var itemorder = angular.copy($scope.order);
+
+        $http.post(`/api/order`,itemorder).then(resp =>
+        {
+            $scope.order.push(resp.data);
+            $scope.message = "Mua thành công";
+
+        }).catch(error => {
+            $scope.message = "Mua thất bại";
+            console.log("Error", error);
+        })
     }
 });
 

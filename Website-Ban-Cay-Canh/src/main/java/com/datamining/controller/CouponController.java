@@ -1,6 +1,8 @@
 package com.datamining.controller;
 
+import com.datamining.entity.Account;
 import com.datamining.entity.Coupon;
+import com.datamining.service.AccountService;
 import com.datamining.service.CounponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
@@ -21,13 +23,22 @@ import java.util.Date;
 public class CouponController {
     @Autowired
     CounponService service;
+    @Autowired
+    AccountService aService;
 
 //    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 //    Date datenow = new Date();
 //    String date = sdf.format(datenow);
 
     @RequestMapping("/coupon")
-    public String getCouponBy(Model model, @RequestParam("code") String code) {
+    public String getCouponBy(Model model, @RequestParam("code") String code, HttpServletRequest req) {
+        if(req.getRemoteUser() != null) {
+            Account us = aService.findByTk(req.getRemoteUser());
+            int usId = us.getId();
+            model.addAttribute("user_id", usId);
+        }
+
+
         try {
             Coupon cp = service.findbyCode(code);
 //            System.out.println(code);

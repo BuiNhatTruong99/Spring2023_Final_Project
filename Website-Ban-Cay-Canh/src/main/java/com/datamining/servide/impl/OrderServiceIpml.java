@@ -33,6 +33,11 @@ public class OrderServiceIpml implements OrderService {
 	public Order update(Integer id, Order order) {
 		return dao.save(order);
 	}
+
+	@Override
+	public Order create(Order order) {
+		return dao.save(order);
+	}
 }
 
 

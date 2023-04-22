@@ -100,11 +100,19 @@
                                 </div>
                                 <span class="text-muted" id="saleP">[[${sale}]]%</span>
                             </li>
+                            <li class="list-group-item d-flex justify-content-between lh-condensed">
+                                <div>
+                                    <h6 class="my-0">Phí vận chuyển</h6>
+                                </div>
+                                <span class="text-muted" id="shipper"> {{shipmoney |vndFilter}} </span>
+                            </li>
                             <li class="list-group-item d-flex justify-content-between">
                                 <span>Tổng tiền cần phải trả</span>
-                                <strong id="total">{{cart.amount -( cart.amount* (CouponSale/100)) |
+                                <strong id="total">{{(cart.amount -( cart.amount* (CouponSale/100)))+ shipmoney |
                                     vndFilter}}</strong>
+
                             </li>
+                            <span id="totalmoney" style="visibility: hidden">{{cart.amount -( cart.amount* (CouponSale/100))}}</span>
                             <form class="card p-2 " id="coupon-apply" action="/coupon" method="POST">
                                 <div class="input-group">
                                     <input type="text" class="form-control" name="code" placeholder="Mã giảm giá">
@@ -121,12 +129,15 @@
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Thông tin nhận hàng</h4>
                     <form class="needs-validation" validate>
+                        <input id="user_id" type="hidden" th:value="|${user_id}|"></input>
+                        <input ng-model="order.profile.id" value="{{userid}}" disabled>
                         <div class="mb-3">
                             <label for="name">Họ và tên</label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                 </div>
-                                <input type="text" class="form-control" id="name" placeholder="Nhập họ và tên"  required>
+                                <input type="text" class="form-control" id="name" placeholder="Nhập họ và tên"
+                                       ng-value="formprofile.fullname" required>
                                 <div class="invalid-feedback" style="width: 100%;">
                                     Vui lòng nhập họ và tên
                                 </div>
@@ -137,7 +148,8 @@
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                 </div>
-                                <input type="number" class="form-control" id="phone" placeholder="Nhập số điện thoại..." pattern="[0-9]"  required>
+                                <input type="tel" class="form-control" id="phone" placeholder="Nhập số điện thoại..."
+                                       ng-value="formprofile.phone"  pattern="[0-9]{10}" maxlength="12" required>
                                 <div class="invalid-feedback" style="width: 100%;">
                                     Vui lòng nhập số điện thoại
                                 </div>
@@ -147,7 +159,8 @@
 
                         <div class="mb-3">
                             <label for="address">Địa chỉ</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Sài gòn" required>
+                            <input type="text" class="form-control" id="address"
+                                   ng-value="formprofile.address" placeholder="1234 Sài gòn" required>
                             <div class="invalid-feedback">
                                Vui lòng nhập địa chỉ.
                             </div>
@@ -155,34 +168,50 @@
 
                         <div class="mb-3">
                             <label for="note">Ghi chú</label>
-                            <textarea type="text" class="form-control" id="note" placeholder="..." rows="4" cols="50"></textarea>
+                            <textarea type="text" class="form-control" id="note"
+                                      name="note" ng-model="order.note" placeholder="..." rows="4" cols="50"></textarea>
 
                         </div>
 
                         <hr class="mb-4">
 
-
+                        <div>
                         <h4 class="mb-3">Thanh toán</h4>
 
                         <div class="d-block my-3">
-                            <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked required>
-                                <label class="custom-control-label" for="credit">Tiền mặt</label>
-                            </div>
+                            <select ng-model="order.payment.id" class="form-control" required>
+                                <option value="" >-- Chọn phương thức thanh toán --</option>
+                                <option ng-repeat="c in payment" ng-value="c.id">{{c.name}}</option>
+                            </select>
 
-                            <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required>
-                                <label class="custom-control-label" for="paypal">Thanh toán online</label>
+                        </div>
+                            <h4 class="mb-3">Phương thức vận chuyển</h4>
+
+                            <div class="d-block my-3" ng-click="clickship()">
+                                <div class="custom-control custom-radio">
+                                    <input id="fast" name="ship" type="radio" class="custom-control-input" value="35000"  required>
+                                    <label class="custom-control-label" for="fast">Nhanh</label>
+                                </div>
+
+                                <div class="custom-control custom-radio">
+                                    <input id="normal" name="ship" type="radio" class="custom-control-input" value="25000" checked required>
+                                    <label class="custom-control-label" for="normal">Thường</label>
+                                </div>
                             </div>
+                            <input type="hidden" name="status" class="form-control" ng-model="order.status.id" disabled>
+
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Mua hàng</button>
+                        <button class="btn btn-primary btn-lg btn-block" type="submit" ng-click="create()">Mua hàng</button>
+
+                        <h3 style="color: red">{{message}}</h3>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 <div th:replace="user/layout/_script.html"></div>
+
 </body>
 
 </html>

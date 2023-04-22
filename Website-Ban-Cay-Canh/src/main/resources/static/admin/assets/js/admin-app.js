@@ -31,7 +31,7 @@ app.config(function ($routeProvider) {
             controller: "profiles-ctrl"
         })
         .when("/authority",{
-            templateUrl: "../admin/feedbacks/manager-authority.html",
+            templateUrl: "../admin/authority/manager-authority.html",
             controller: "authority-ctrl"
         })
         .when("/feedback",{

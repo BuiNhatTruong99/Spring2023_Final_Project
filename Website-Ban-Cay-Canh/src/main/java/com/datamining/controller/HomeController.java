@@ -44,7 +44,6 @@ public class HomeController {
 			int usId = us.getId();
 			model.addAttribute("user_id", usId);
 		}
-
 		return "user/layout/index";
 	}
 	
@@ -69,9 +68,14 @@ public class HomeController {
 	}
 
 	@RequestMapping("/cart/detail")
-	public String cart_detail(Model model)
+	public String cart_detail(Model model,HttpServletRequest req)
 	{
 		model.addAttribute("sale",0);
+		if(req.getRemoteUser() != null) {
+			Account us = aService.findByTk(req.getRemoteUser());
+			int usId = us.getId();
+			model.addAttribute("user_id", usId);
+		}
 		return "user/cart/cart-detail";
 	}
 	

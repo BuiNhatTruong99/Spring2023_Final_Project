@@ -14,4 +14,5 @@ public interface OrderService {
 	List<Order> findAllByCanceled();
 
 	Order update(Integer id, Order order);
+	Order create(Order order);
 }

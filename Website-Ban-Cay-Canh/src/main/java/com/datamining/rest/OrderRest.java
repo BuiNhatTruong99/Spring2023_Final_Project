@@ -3,6 +3,7 @@ package com.datamining.rest;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.datamining.entity.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,10 @@ import lombok.var;
 @RequestMapping("/api/order")
 public class OrderRest {
 	private final OrderService orderService;
-	
+
+	@Autowired
+	OrderService service;
+
 	@GetMapping()
 	public ObjectResponse getAll() {
 		var orders = orderService.findAll();
@@ -47,7 +51,7 @@ public class OrderRest {
 		var orderDTO = orders.stream().map(OrderDTO::convert).collect(Collectors.toList());
 		return new ObjectResponse("ok", orderDTO, HttpStatus.OK.value());
 	}
-	
+
 	@GetMapping("/canceled")
 	public ObjectResponse getAllByCanceled() {
 		var orders = orderService.findAllByCanceled();
@@ -55,16 +59,22 @@ public class OrderRest {
 		return new ObjectResponse("ok", orderDTO, HttpStatus.OK.value());
 	}
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ObjectResponse> update(@PathVariable("id") Integer id, @RequestBody OrderDTO orderDTO) {
-        try {
-            var order = Order.convert(orderDTO);
-            var newOrder = orderService.update(id, order);
-            var newOrderDTO = OrderDTO.convert(newOrder);
-            return ResponseEntity.status(HttpStatus.OK).body(new ObjectResponse("success", newOrderDTO, HttpStatus.OK.value()));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectResponse("error", e.getMessage(), HttpStatus.BAD_REQUEST.value()));
-        }
-    }
+	@PutMapping("/{id}")
+	public ResponseEntity<ObjectResponse> update(@PathVariable("id") Integer id, @RequestBody OrderDTO orderDTO) {
+		try {
+			var order = Order.convert(orderDTO);
+			var newOrder = orderService.update(id, order);
+			var newOrderDTO = OrderDTO.convert(newOrder);
+			return ResponseEntity.status(HttpStatus.OK).body(new ObjectResponse("success", newOrderDTO, HttpStatus.OK.value()));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectResponse("error", e.getMessage(), HttpStatus.BAD_REQUEST.value()));
+		}
+	}
+
+	@PostMapping
+	public Order create(@RequestBody Order order) {
+
+		return service.create(order);
+	}
 }
 

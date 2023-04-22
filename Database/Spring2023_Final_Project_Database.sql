@@ -119,6 +119,8 @@ CREATE TABLE Orders(
 	id INT AUTO_INCREMENT PRIMARY KEY,
     phone VARCHAR(15),
     address VARCHAR(255),
+    coupon INT,
+    ship DECIMAL(12, 1),
     note VARCHAR(255),
     total DECIMAL(10, 2),
 	create_date DATETIME NOT NULL,
