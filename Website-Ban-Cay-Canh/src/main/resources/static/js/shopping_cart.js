@@ -93,24 +93,12 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
 
     $scope.formprofile = {};
     $scope.userid =[];
-    var user_id = document.getElementById('user_id').value;
-    if(user_id == null)
-    {
-        user_id = 0;
-    }else
-    {
-        user_id = document.getElementById('user_id').value;
-        $scope.userid = user_id;
-    }
-    $scope.payment= {};
+    $scope.profile = {};
+    // $scope.payment= {};
 
     // $scope.orderstatus = 1;
     $scope.initialize = function() {
-        $http.get(`/profile/${user_id}`).then(resp => {
-            $scope.profile = resp.data;
-            // console.log($scope.profile)
-            $scope.formprofile = angular.copy($scope.profile);
-        })
+
         $http.get('/api/payment').then(resp => {
             $scope.payment = resp.data;
         })
@@ -119,7 +107,29 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
         // })
 
     }
+
+    $('#cart__button').ready(function(){
+        var user_id = document.getElementById('user_id').value;
+        console.log(user_id);
+        if(user_id == null)
+        {
+            user_id = 0;
+        }else
+        {
+            user_id = document.getElementById('user_id').value;
+            $scope.userid = user_id;
+        }
+
+        $http.get(`/profile/${user_id}`).then(resp => {
+            $scope.profile = resp.data;
+            console.log($scope.profile)
+            $scope.formprofile = angular.copy($scope.profile);
+        })
+    })
+
     $scope.initialize();
+
+
     $scope.order = {};
     $scope.shipmoney = 25000;
     $scope.clickship = function ()

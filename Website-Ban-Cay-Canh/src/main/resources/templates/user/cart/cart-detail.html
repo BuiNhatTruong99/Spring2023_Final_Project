@@ -129,8 +129,10 @@
                 <div class="col-md-8 order-md-1">
                     <h4 class="mb-3">Thông tin nhận hàng</h4>
                     <form class="needs-validation" validate>
-                        <input id="user_id" type="hidden" th:value="|${user_id}|"></input>
-                        <input ng-model="order.profile.id" value="{{userid}}" disabled>
+                        <div class="mb-3">
+                            <input id="user_id" type="hidden" th:value="|${user_id}|"></input>
+                            <input type="hidden" ng-model="order.profile.id" value="{{userid}}" disabled>
+                        </div>
                         <div class="mb-3">
                             <label for="name">Họ và tên</label>
                             <div class="input-group">
