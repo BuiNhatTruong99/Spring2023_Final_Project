@@ -89,37 +89,47 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     }
 
 
+
+
     //payment
 
-    $scope.formprofile = {};
-    $scope.userid =[];
-    var user_id = document.getElementById('user_id').value;
-    if(user_id == null)
-    {
-        user_id = 0;
-    }else
-    {
-        user_id = document.getElementById('user_id').value;
-        $scope.userid = user_id;
-    }
-    $scope.payment= {};
 
-    // $scope.orderstatus = 1;
-    $scope.initialize = function() {
-        $http.get(`/profile/${user_id}`).then(resp => {
-            $scope.profile = resp.data;
-            // console.log($scope.profile)
-            $scope.formprofile = angular.copy($scope.profile);
-        })
-        $http.get('/api/payment').then(resp => {
-            $scope.payment = resp.data;
-        })
-        // $http.get('/api/orderStatus').then(resp => {
-        //     $scope.orderstatus = resp.data;
-        // })
+    $('#cart__button').click(function () {})
 
-    }
-    $scope.initialize();
+
+        $scope.formprofile = {};
+        $scope.userid = {};
+        var user_id = document.getElementById('user_id').value;
+        if(user_id == null)
+        {
+            user_id = 0;
+        }else
+        {
+            user_id = document.getElementById('user_id').value;
+            $scope.userid = user_id;
+        }
+        $scope.payment= {};
+
+        // $scope.orderstatus = 1;
+        $scope.initialize = function() {
+            $http.get(`/profile/${user_id}`).then(resp => {
+                $scope.profile = resp.data;
+                console.log($scope.profile)
+                $scope.formprofile = angular.copy($scope.profile);
+            })
+            $http.get('/api/payment').then(resp => {
+                $scope.payment = resp.data;
+            })
+            // $http.get('/api/orderStatus').then(resp => {
+            //     $scope.orderstatus = resp.data;
+            // })
+        }
+        $scope.initialize();
+
+
+
+
+
     $scope.order = {};
     $scope.shipmoney = 25000;
     $scope.clickship = function ()
@@ -141,18 +151,19 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
         $scope.order.address = document.getElementById('address').value;
         $scope.order.coupon = saleValue;
         $scope.order.ship = parseInt(document.querySelector('input[name="ship"]:checked').value);
-        // alert($scope.order.ship)
+
         $scope.order.total = document.getElementById('totalmoney').textContent;
         // $scope.order.status.id = $scope.orderstatus = 1;
         // $scope.order.profile_id =  document.getElementById('user_id').value;
 
         var itemorder = angular.copy($scope.order);
 
+
         $http.post(`/api/order`,itemorder).then(resp =>
         {
             $scope.order.push(resp.data);
             $scope.message = "Mua thành công";
-
+            console.log($scope.order)
         }).catch(error => {
             $scope.message = "Mua thất bại";
             console.log("Error", error);

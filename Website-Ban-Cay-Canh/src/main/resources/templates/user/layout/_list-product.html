@@ -115,17 +115,17 @@
 			</ul>
 		</th:block>
 
-		<th:block th:if="${filtCate}">
-<!--			ka-->
-			<ul class="pagination ">
-				<li class="page-item"><a class="page-link" th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=0|}">|<</a></li>
-				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"
-										 th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.number -1} |}" ><< </a></li>
-				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"
-										 th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.number + 1} |}" > >>  </a></li>
-				<li class="page-item"><a class="page-link" th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.totalPages - 1} |}">>|</a></li>
-			</ul>
-		</th:block>
+<!--		<th:block th:if="${filtCate}">-->
+<!--&lt;!&ndash;			ka&ndash;&gt;-->
+<!--			<ul class="pagination ">-->
+<!--				<li class="page-item"><a class="page-link" th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=0|}">|<</a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:if="${items.number > 0}"-->
+<!--										 th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.number -1} |}" ><< </a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:if="${items.number < items.totalPages - 1}"-->
+<!--										 th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.number + 1} |}" > >>  </a></li>-->
+<!--				<li class="page-item"><a class="page-link" th:href="@{|/filter/${urlCate}?count=${filtCate}&&page=${items.totalPages - 1} |}">>|</a></li>-->
+<!--			</ul>-->
+<!--		</th:block>-->
 	</div>
 
 </div>

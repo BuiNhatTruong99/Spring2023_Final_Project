@@ -99,25 +99,26 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
         String urlHead = req.getHeader("Referer");
         String url = urlHead.substring(urlHead.lastIndexOf("/") + 1); // lấy url của category
+        System.out.println(price);
         System.out.println(url);
         String[] arr = price.split(" ");
         Double price1 = Double.parseDouble(arr[0]);
         Double price2 = Double.parseDouble(arr[1]);
-//        if (url.equals("home") || url.equals("/")) {
+        if (url.equals("home") ) {
             Page<Product> list = pService.findByPriceBetweenPage(price1, price2, pageable);
             model.addAttribute("items", list);
             model.addAttribute("filt", price);
 
             return "user/layout/index";
-//        }
-//
-//        Page<Product> list = pService.findByPriceBetweenByCate(price1, price2, url, pageable);
-//
-//        model.addAttribute("filtCate", price);
-//        model.addAttribute("urlCate",url);
-//        model.addAttribute("items", list);
-//
-//
-//        return "user/layout/index";
+        }
+
+        List<Product> list = pService.findByPriceBetweenByCate(price1, price2, url, pageable);
+
+        model.addAttribute("filtCate", price);
+        model.addAttribute("urlCate",url);
+        model.addAttribute("items", list);
+
+
+        return "user/layout/index";
     }
 }

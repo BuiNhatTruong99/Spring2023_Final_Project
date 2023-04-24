@@ -44,5 +44,5 @@ public interface ProductService {
 
     Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable);
 
-    Page<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
+    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
 }
