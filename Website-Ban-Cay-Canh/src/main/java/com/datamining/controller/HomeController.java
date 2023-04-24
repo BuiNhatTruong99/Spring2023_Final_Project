@@ -75,6 +75,8 @@ public class HomeController {
 			Account us = aService.findByTk(req.getRemoteUser());
 			int usId = us.getId();
 			model.addAttribute("user_id", usId);
+		} else {
+			return "redirect:/login/form";
 		}
 		return "user/cart/cart-detail";
 	}

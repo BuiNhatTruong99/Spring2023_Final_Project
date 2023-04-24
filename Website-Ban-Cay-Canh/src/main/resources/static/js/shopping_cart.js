@@ -1,9 +1,9 @@
 const app = angular.module('shoppingCart', ['ngSanitize']);
-app.controller('shoppingCart-ctrl', function($scope, $http) {
+app.controller('shoppingCart-ctrl', function ($scope, $http) {
     $scope.products = [];
     $scope.form = {};
 
-    $scope.cates = function (){
+    $scope.cates = function () {
         $http.get('/api/category').then(resp => {
             $scope.cates = resp.data;
         })
@@ -13,29 +13,29 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.cart = {
         items: [],
         add(id) {
-			let quantity = document.querySelector("#quantity");
-			let quantity2 = quantity ? parseInt(quantity.value) : 1;
-			let product_size = document.querySelector('input[name="size"]:checked');
-			let product_size2 = product_size ? product_size.value : '';
-			let arr = product_size2.split(",");
-			let idSize = arr[0] ? arr[0] : '';
-			let priceSize = arr[1] ? arr[1] : 0;
+            let quantity = document.querySelector("#quantity");
+            let quantity2 = quantity ? parseInt(quantity.value) : 1;
+            let product_size = document.querySelector('input[name="size"]:checked');
+            let product_size2 = product_size ? product_size.value : '';
+            let arr = product_size2.split(",");
+            let idSize = arr[0] ? arr[0] : '';
+            let priceSize = arr[1] ? arr[1] : 0;
             let item = this.items.find(item => item.id === id && item.idSize === idSize);
-			if (quantity.value.length == 0) {
-				return alert("Mời bạn vui lòng nhập số lượng!");
-			}
+            if (quantity.value.length == 0) {
+                return alert("Mời bạn vui lòng nhập số lượng!");
+            }
             if (item) {
                 item.qty += quantity2;
                 this.saveToLocalStorage()
-                alert("+"+ quantity2 +" sản phẩm [" + item.name + "] vào giỏ hàng!");
+                alert("+" + quantity2 + " sản phẩm [" + item.name + "] vào giỏ hàng!");
             } else {
                 $http.get(`/api/dto/products/${id}`).then(resp => {
-					resp.data.data.idSize = idSize;
-					resp.data.data.priceSize = Math.floor(priceSize);
+                    resp.data.data.idSize = idSize;
+                    resp.data.data.priceSize = Math.floor(priceSize);
                     resp.data.data.qty = quantity2;
                     this.items.push(resp.data.data);
                     this.saveToLocalStorage()
-                    alert("Thêm "+ quantity2 +" sản phẩm [" + resp.data.data.name + "] vào giỏ hàng thành công!");
+                    alert("Thêm " + quantity2 + " sản phẩm [" + resp.data.data.name + "] vào giỏ hàng thành công!");
                 });
             }
         },
@@ -58,9 +58,9 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
                 .reduce((total, qty) => total += qty, 0);
         },
 
-		get amount() {
+        get amount() {
             return this.items.map(item => item.qty * item.price + item.qty * item.priceSize)
-            				 .reduce((total, qty) => total += qty, 0);
+                .reduce((total, qty) => total += qty, 0);
         },
 
         // save cart to localstorage
@@ -80,24 +80,25 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     $scope.cart.loadFromLocalStorage();
 
     var salePd = document.getElementById("saleP");
-    if (salePd == null || salePd == undefined)
-    {
+    if (salePd == null || salePd == undefined) {
         $scope.CouponSale = 0;
-    }else {
+    } else {
         var paragraphValue = parseFloat(salePd.textContent);
         $scope.CouponSale = paragraphValue;
     }
 
 
+
+
     //payment
 
     $scope.formprofile = {};
-    $scope.userid =[];
+    $scope.userid = [];
     $scope.profile = {};
-    // $scope.payment= {};
+    $scope.payment = {};
 
     // $scope.orderstatus = 1;
-    $scope.initialize = function() {
+    $scope.initialize = function () {
 
         $http.get('/api/payment').then(resp => {
             $scope.payment = resp.data;
@@ -108,14 +109,12 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
 
     }
 
-    $('#cart__button').ready(function(){
+    $('#cart__button').ready(function () {
         var user_id = document.getElementById('user_id').value;
         console.log(user_id);
-        if(user_id == null)
-        {
+        if (user_id == null) {
             user_id = 0;
-        }else
-        {
+        } else {
             user_id = document.getElementById('user_id').value;
             $scope.userid = user_id;
         }
@@ -132,16 +131,14 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
 
     $scope.order = {};
     $scope.shipmoney = 25000;
-    $scope.clickship = function ()
-    {
+    $scope.clickship = function () {
         var selectedShip = parseInt(document.querySelector('input[name="ship"]:checked').value);
         $scope.shipmoney = selectedShip;
     }
 
 
 
-    $scope.create = function ()
-    {
+    $scope.create = function () {
         var saleP = document.getElementById("saleP");
         var saleText = saleP.textContent;
         var saleValue = saleText.replace("%", "");
@@ -151,18 +148,18 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
         $scope.order.address = document.getElementById('address').value;
         $scope.order.coupon = saleValue;
         $scope.order.ship = parseInt(document.querySelector('input[name="ship"]:checked').value);
-        // alert($scope.order.ship)
+
         $scope.order.total = document.getElementById('totalmoney').textContent;
         // $scope.order.status.id = $scope.orderstatus = 1;
         // $scope.order.profile_id =  document.getElementById('user_id').value;
 
         var itemorder = angular.copy($scope.order);
 
-        $http.post(`/api/order`,itemorder).then(resp =>
-        {
+
+        $http.post(`/api/order`, itemorder).then(resp => {
             $scope.order.push(resp.data);
             $scope.message = "Mua thành công";
-
+            console.log($scope.order)
         }).catch(error => {
             $scope.message = "Mua thất bại";
             console.log("Error", error);
@@ -170,16 +167,16 @@ app.controller('shoppingCart-ctrl', function($scope, $http) {
     }
 });
 
-function getCurrentURL () {
-  return window.location.pathname;
+function getCurrentURL() {
+    return window.location.pathname;
 }
 
 const url = getCurrentURL();
 console.log(url);
 
 app.filter('vndFilter', function () {
-	return function (x) {
-				x = x.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
-				return x.toString().split('.').join(',');
-		   };
+    return function (x) {
+        x = x.toLocaleString('it-IT', { style: 'currency', currency: 'VND' });
+        return x.toString().split('.').join(',');
+    };
 });

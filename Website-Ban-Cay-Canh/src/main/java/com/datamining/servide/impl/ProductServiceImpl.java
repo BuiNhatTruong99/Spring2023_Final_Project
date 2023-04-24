@@ -106,7 +106,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable) {
+    public List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable) {
         return pdao.findByPriceBetweenByCate(price1,price2,url,pageable);
     }
 
