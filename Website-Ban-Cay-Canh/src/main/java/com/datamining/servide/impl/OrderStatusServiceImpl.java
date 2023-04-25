@@ -17,4 +17,8 @@ public class OrderStatusServiceImpl implements OrderStatusService {
 	public List<OrderStatus> findAll() {
 		return dao.findAll();
 	}
+	
+	public List<OrderStatus> findByFilter() {
+		return dao.findByFilter();
+	}
 }

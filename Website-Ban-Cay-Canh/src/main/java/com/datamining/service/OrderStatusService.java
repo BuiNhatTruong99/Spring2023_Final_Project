@@ -6,4 +6,6 @@ import com.datamining.entity.OrderStatus;
 
 public interface OrderStatusService {
 	List<OrderStatus> findAll();
+	
+	List<OrderStatus> findByFilter();
 }

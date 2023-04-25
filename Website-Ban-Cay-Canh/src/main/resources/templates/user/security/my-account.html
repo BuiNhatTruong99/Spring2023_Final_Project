@@ -51,13 +51,13 @@
 			<div class="tab-content" id="v-pills-tabContent" >
 				<div class="tab-pane fade show active" id="v-pills-home"
 					role="tabpanel" aria-labelledby="v-pills-home-tab">
-					<div class="tab-pane fade active show" id="orders">
+					<div class="tab-pane fade active show" id="orders" ng-controller="order-ctrl">
 						<h3>Hoá đơn</h3>
 						<div class="table-responsive">
 							<table class="table">
 								<thead>
 									<tr>
-										<th>Đơn hàng</th>
+										<th>Mã đơn</th>
 										<th>Ngày đặt</th>
 										<th>Trạng thái</th>
 										<th>Tổng tiền</th>
@@ -65,19 +65,12 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>1</td>
-										<td>24/02/2023</td>
-										<td><span class="success">Đã nhận</span></td>
-										<td>625,000 VND</td>
-										<td><a href="#" class="view">Xem</a></td>
-									</tr>
-									<tr>
-										<td>2</td>
-										<td>14/04/2023</td>
-										<td>Chờ xác nhận</td>
-										<td>325,000 VND</td>
-										<td><a href="#" class="view">Xem</a></td>
+									<tr ng-repeat="o in items">
+										<td>{{o.id}}</td>
+										<td>{{o.create_date | date: 'dd/MM/yyyy'}}</td>
+										<td>{{o.status.name}}</td>
+										<td>{{o.total | vndFilter}}</td>
+										<td><a href="/account/order-detail?id={{o.id}}" class="view">Xem</a></td>
 									</tr>
 								</tbody>
 							</table>

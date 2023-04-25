@@ -21,7 +21,7 @@
                 <td class="td_height">{{order.profile.fullname}}</td>
                 <td class="td_height">{{order.create_date | date: 'dd-MM-yyyy'}}</td>
                 <td class="td_height">{{order.status.name}}</td>
-                <td class="td_height">{{order.total}}</td>
+                <td class="td_height">{{order.total | vndFilter}}</td>
                 <td>
                 	<div class="quick_view"><i class="bi bi-eye"></i><button ng-click="edit(order)">Chi tiết</button></div>
                 </td>

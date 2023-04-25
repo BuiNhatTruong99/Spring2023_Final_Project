@@ -1,5 +1,7 @@
 package com.datamining.servide.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,26 @@ public class OrderServiceIpml implements OrderService {
 	public List<Order> findAllByCanceled() {
 		return dao.findAllByCanceled();
 	}
+	
+	@Override
+	public List<Order> findAllByFilter(Integer idStatus) {
+		return dao.findAllByFilter(idStatus);
+	}
+	
+	@Override
+	public List<Order> findAllByFilter(String createDate) {		
+		return dao.findAllByFilter(createDate);
+	}
+	
+	@Override
+	public List<Order> findAllByFilter(Integer idStatus,String createDate) {		
+		return dao.findAllByFilter(idStatus, createDate);
+	}
+	
+	@Override
+	public Order findById(Integer id) {
+		return dao.findById(id).get();
+	}
 
 	@Override
 	public Order update(Integer id, Order order) {
@@ -37,6 +59,21 @@ public class OrderServiceIpml implements OrderService {
 	@Override
 	public Order create(Order order) {
 		return dao.save(order);
+	}
+	
+	@Override
+	public void delete(Integer id) {
+		dao.deleteById(id);
+	}
+	
+	@Override
+	public List<Order> findByProfileId(Integer idProfile) {
+		return dao.findByProfileId(idProfile);
+	}
+
+	@Override
+	public List<Order> findByKeyWord(String keyword) {
+		return dao.findByKeyWord(keyword);
 	}
 }
 
