@@ -17,6 +17,8 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <link rel="stylesheet" href="/lib/fontawesome-free-6.1.1/css/all.min.css">
+
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
     </style>
@@ -261,93 +263,107 @@ xmlns:sec="http://www.thymeleaf.org/extras/spring-security" lang="en">
 <div class="scrolls">
     <a id="scrolls-top"><i class="fas fa-caret-up"></i></a>
 </div>
-    <footer class="footer_widgets">
-        <div class="footer_top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="widgets_container contact_us">
-                            <h3>Thời gian mở cửa</h3>
-                            <p><span>Thứ 2 - Thứ 6:</span> 8AM - 10PM</p>
-                            <p><span>Thứ 7:</span> 9AM-8PM</p>
-                            <p><span>Chủ nhật:</span> 14hPM-18hPM</p>
-                            <p><b>Mở cửa các ngày lễ</b></p>
-                        </div>
-                    </div>
-                    <div class="col-lg-2 col-md-3 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>Về chúng tôi</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    <li><a href="#">Thông tin</a></li>
-                                    <li><a href="#">Kiểm tra</a></li>
-                                    <li><a href="/contact">Liên Hệ</a></li>
-                                    <li><a href="#">FAQs</a></li>
-                                    <li><a href="#">Sản phẩm yêu thích</a></li>
-                                </ul>
+
+
+<div class="toast" id="toats" data-toggle="tooltip" >
+        <div class="toast-header">
+            <img src="../images/title_logo.png" class="rounded me-2"  style="width: 20px; height: 20px">
+            <strong class="me-auto">Thành công</strong>
+            <small>{{time | date: 'dd-MM-yyyy hh:mm:ss'}}</small>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{message}}
+        </div>
+</div>
+
+        <footer class="footer_widgets">
+            <div class="footer_top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="widgets_container contact_us">
+                                <h3>Thời gian mở cửa</h3>
+                                <p><span>Thứ 2 - Thứ 6:</span> 8AM - 10PM</p>
+                                <p><span>Thứ 7:</span> 9AM-8PM</p>
+                                <p><span>Chủ nhật:</span> 14hPM-18hPM</p>
+                                <p><b>Mở cửa các ngày lễ</b></p>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-5">
-                        <div class="widgets_container widget_app">
-                            <div class="footer_logo">
-                                <a href="/home/index"><img src="/images/logo.png" alt=""></a>
-                            </div>
-                            <div class="footer_widgetnav_menu">
-                                <ul>
-                                    <li><a href="#">Thanh toán</a></li>
-                                    <li><a href="#">Chi nhánh</a></li>
-                                    <li><a href="#">Liên hệ</a></li>
-                                    <li><a href="#">Dịch vụ</a></li>
-                                </ul>
-                            </div>
-                            <div class="footer_social">
-                                <ul>
-                                    <li><a href="#"><i class="fa-brands fa-facebook"></i></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-google-plus" aria-hidden="true"></i></a></li>
-                                    <li><a href="#"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="footer_app">
-                                <ul>
-                                    <li><img src="/images/Slide/appstore.png" alt=""></li>
-                                    <li><img src="/images/Slide/ggplay.png" alt=""></li>
-                                </ul>
+                        <div class="col-lg-2 col-md-3 col-sm-6">
+                            <div class="widgets_container widget_menu">
+                                <h3>Về chúng tôi</h3>
+                                <div class="footer_menu">
+                                    <ul>
+                                        <li><a href="#">Thông tin</a></li>
+                                        <li><a href="#">Kiểm tra</a></li>
+                                        <li><a href="/contact">Liên Hệ</a></li>
+                                        <li><a href="#">FAQs</a></li>
+                                        <li><a href="#">Sản phẩm yêu thích</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>Dịch vụ</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    <li><a href="/contact">Liên hệ chúng tôi</a></li>
-                                    <li><a href="/cart/detail">Giỏ hàng</a></li>
-                                    <li><a href="#">Hoàn trả hoá đơn</a></li>
-                                </ul>
+                        <div class="col-lg-4 col-md-5">
+                            <div class="widgets_container widget_app">
+                                <div class="footer_logo">
+                                    <a href="/home/index"><img src="/images/logo.png" alt=""></a>
+                                </div>
+                                <div class="footer_widgetnav_menu">
+                                    <ul>
+                                        <li><a href="#">Thanh toán</a></li>
+                                        <li><a href="#">Chi nhánh</a></li>
+                                        <li><a href="#">Liên hệ</a></li>
+                                        <li><a href="#">Dịch vụ</a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer_social">
+                                    <ul>
+                                        <li><a href="#"><i class="fa-brands fa-facebook"></i></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-twitter" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-google-plus" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="footer_app">
+                                    <ul>
+                                        <li><img src="/images/Slide/appstore.png" alt=""></li>
+                                        <li><img src="/images/Slide/ggplay.png" alt=""></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-2 col-md-4 col-sm-6">
-                        <div class="widgets_container widget_menu">
-                            <h3>Cửa hàng</h3>
-                            <div class="footer_menu">
-                                <ul>
-                                    <li><a href="/home/index#featured">Sản phẩm</a></li>
-                                    <li><a href="/home/index#topsale">Sản phẩm bán chạy nhất</a></li>
-                                </ul>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="widgets_container widget_menu">
+                                <h3>Dịch vụ</h3>
+                                <div class="footer_menu">
+                                    <ul>
+                                        <li><a href="/contact">Liên hệ chúng tôi</a></li>
+                                        <li><a href="/cart/detail">Giỏ hàng</a></li>
+                                        <li><a href="#">Hoàn trả hoá đơn</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-6">
+                            <div class="widgets_container widget_menu">
+                                <h3>Cửa hàng</h3>
+                                <div class="footer_menu">
+                                    <ul>
+                                        <li><a href="/home/index#featured">Sản phẩm</a></li>
+                                        <li><a href="/home/index#topsale">Sản phẩm bán chạy nhất</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
 
-<div th:replace="user/layout/_script.html"></div>
+    <div th:replace="user/layout/_script.html"></div>
 
-</body>
+    </body>
 
-</html>
+    </html>

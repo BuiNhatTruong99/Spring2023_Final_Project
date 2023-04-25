@@ -232,6 +232,18 @@
     </div>
     </span>
 
+    <div class="toast" id="toats" data-toggle="tooltip" >
+        <div class="toast-header">
+            <img src="../images/title_logo.png" class="rounded me-2"  style="width: 20px; height: 20px">
+            <strong class="me-auto">Thành công</strong>
+            <small>{{time | date: 'dd-MM-yyyy hh:mm:ss'}}</small>
+            <button type="button" class="btn-close" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            {{message}}
+        </div>
+    </div>
+
     <footer class="footer_widgets">
         <div class="footer_top">
             <div class="container">

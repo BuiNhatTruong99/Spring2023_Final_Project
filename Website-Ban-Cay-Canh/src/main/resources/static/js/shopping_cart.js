@@ -2,6 +2,9 @@ const app = angular.module('shoppingCart', ['ngSanitize']);
 app.controller('shoppingCart-ctrl', function ($scope, $http) {
     $scope.products = [];
     $scope.form = {};
+    $scope.message = "";
+    $scope.time;
+
 
     $scope.cates = function () {
         $http.get('/api/category').then(resp => {
@@ -9,10 +12,21 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
         })
     };
     $scope.cates();
+    $scope.toats = function () {
+        $('.toast').toast('show');
+        setTimeout(function () {
+            $('.toast').toast('hide');
+        }, 2000);
+    }
 
+    $scope.hideToast = function () {
+        $('.toast').toast('hide');
+    }
     $scope.cart = {
         items: [],
         add(id) {
+            let timeAlert = new Date();
+            $scope.time = timeAlert;
             let quantity = document.querySelector("#quantity");
             let quantity2 = quantity ? parseInt(quantity.value) : 1;
             let product_size = document.querySelector('input[name="size"]:checked');
@@ -27,7 +41,9 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
             if (item) {
                 item.qty += quantity2;
                 this.saveToLocalStorage()
-                alert("+" + quantity2 + " sản phẩm [" + item.name + "] vào giỏ hàng!");
+                // alert("Thêm " + quantity2 + " sản phẩm [" + item.name + "] vào giỏ hàng thành công!");
+                $scope.message = "Thêm " + quantity2 + " [" + item.name + "] vào giỏ hàng!";
+                $scope.toats();
             } else {
                 $http.get(`/api/dto/products/${id}`).then(resp => {
                     resp.data.data.idSize = idSize;
@@ -36,7 +52,9 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
                     // console.log(resp.data);
                     this.items.push(resp.data.data);
                     this.saveToLocalStorage()
-                    alert("Thêm " + quantity2 + " sản phẩm [" + resp.data.data.name + "] vào giỏ hàng thành công!");
+                    // alert("Thêm " + quantity2 + " sản phẩm [" + resp.data.data.name + "] vào giỏ hàng thành công!");
+                    $scope.message = "Thêm " + quantity2 + " [" + resp.data.data.name + "] vào giỏ hàng!";
+                    $scope.toats();
                 });
             }
         },
@@ -75,7 +93,6 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
             let json = localStorage.getItem("cart");
             this.items = json ? JSON.parse(json) : [];
         },
-
 
     }
     $scope.cart.loadFromLocalStorage();
@@ -166,6 +183,9 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
             console.log("Error", error);
         })
     }
+
+
+
 });
 
 function getCurrentURL() {
@@ -181,3 +201,4 @@ app.filter('vndFilter', function () {
         return x.toString().split('.').join(',');
     };
 });
+

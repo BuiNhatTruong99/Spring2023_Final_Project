@@ -101,7 +101,8 @@ public class ProductController {
         Pageable pageable = PageRequest.of(page.orElse(0), 6); // 6 product/1 page
         String urlHead = req.getHeader("Referer");
         String url = urlHead.substring(urlHead.lastIndexOf("/") + 1); // lấy url của category
-
+        System.out.println(price);
+        System.out.println(url);
         String[] arr = price.split(" ");
         Double price1 = Double.parseDouble(arr[0]);
         Double price2 = Double.parseDouble(arr[1]);
