@@ -175,7 +175,6 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
 
 
         $http.post(`/api/order`, itemorder).then(resp => {
-            $scope.order.push(resp.data);
             $scope.message = "Mua thành công";
             console.log($scope.order)
         }).catch(error => {
