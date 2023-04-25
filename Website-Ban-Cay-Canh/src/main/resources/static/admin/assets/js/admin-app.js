@@ -43,7 +43,8 @@ app.config(function ($routeProvider) {
             controller: "discount-ctrl"
         })
         .otherwise({
-            templateUrl: "../admin/dashboard.html"
+            templateUrl: "../admin/dashbroad/dashboard.html",
+            controller: "dashboard-ctrl"
         })
 })
 

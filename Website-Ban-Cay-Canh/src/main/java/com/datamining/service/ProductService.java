@@ -20,9 +20,9 @@ public interface ProductService {
     List<Product> findByKeyword(String keyword);
 
 
-//    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url);
+    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url);
 
-    List<Product> findByPriceBetween(Double price1, Double price2);
+//    List<Product> findByPriceBetween(Double price1, Double price2);
 
     Product create(Product product);
 
@@ -44,5 +44,9 @@ public interface ProductService {
 
     Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable);
 
-    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
+//    List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
+
+    //dashbroad
+
+    List<Product> top5Sale();
 }
