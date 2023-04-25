@@ -1350,6 +1350,11 @@ h6 {
   padding: 8px 80px;
 }
 
+.btn-order-deleted {
+  padding: 8px 80px;
+  background: #E74646;
+}
+
 .mt-n1 {
   margin-top: -0.2rem !important;
 }

@@ -4,7 +4,7 @@ import com.datamining.DTO.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.internal.NotNull;
+import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.var;
 import org.springframework.security.core.Transient;

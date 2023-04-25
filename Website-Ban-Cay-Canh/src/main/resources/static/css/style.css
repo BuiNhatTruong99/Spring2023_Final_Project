@@ -2411,3 +2411,18 @@ ul {
 .mt-n1 {
   margin-top: -0.02rem !important;
 }
+
+.text-status {
+	font-size: 13px;
+}
+
+.order-img{
+	width: 100px;
+	height: 100px;
+}
+
+.btn-return{
+	text-align: center;
+	width: 154px;
+	padding: 8px 0;
+}

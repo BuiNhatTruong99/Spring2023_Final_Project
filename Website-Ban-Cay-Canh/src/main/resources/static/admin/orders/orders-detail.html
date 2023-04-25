@@ -84,26 +84,23 @@
                 <td class="td_height">{{op.product.categories.name}}</td>
                 <td class="td_height">{{op.quantity}}</td>
                 <td class="td_height">{{op.price | vndFilter}}</td>
-                <td class="td_height">{{op.price * op.quantity | vndFilter}}</td>
+                <td class="td_height">{{(op.price * op.quantity) | vndFilter}}</td>
               </tr>
               </tbody>
             </table>
           </div>
           <div class="col-4">
           	<div class="mt-3 mb-4">
-          		Tổng tiền hàng: {{form.totalPrice | vndFilter}}
-          	</div>
-          	<div class="mb-4">
-          		Phí vận chuyển: 25,000 VND
+          		Tổng tiền sản phẩm: {{form.totalPrice | vndFilter}}
           	</div>
           	<div class="mt-3 mb-4">
           		Giảm giá: 20%
           	</div>
+          	<div class="mb-4">
+          		Phí vận chuyển: 25,000 VND
+          	</div>
           	<div class="mb-4">	
           		Thành tiền: {{form.total | vndFilter}}
-          	</div>
-          	<div class="mb-4">
-          		
           	</div>
           </div>
           <div class="row">
@@ -111,7 +108,10 @@
 	          	<button ng-click="update()" class="btn btn-order" type="button" id="liveToastBtn">
 	                <b class="glyphicon glyphicon-save"></b> Cập nhật
 	            </button>
-            </div>              
+	            <button ng-click="delete(form)" ng-if="orderCanceled" class="btn btn-order-deleted" type="button" id="liveToastBtn">
+	                <b class="glyphicon glyphicon-save"></b> Xóa đơn
+	            </button>
+            </div>               
           </div>
 	</div>
 </div>

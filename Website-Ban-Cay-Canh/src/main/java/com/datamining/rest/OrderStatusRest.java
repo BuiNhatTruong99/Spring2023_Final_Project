@@ -37,5 +37,11 @@ public class OrderStatusRest {
 		var orderStatus = orderStatusService.findAll();
 		return new ObjectResponse("ok", orderStatus, HttpStatus.OK.value());
 	}
+	
+	@GetMapping("/filter")
+	public ObjectResponse getFilter() {
+		var orderStatus = orderStatusService.findByFilter();
+		return new ObjectResponse("ok", orderStatus, HttpStatus.OK.value());
+	}
 }
 
