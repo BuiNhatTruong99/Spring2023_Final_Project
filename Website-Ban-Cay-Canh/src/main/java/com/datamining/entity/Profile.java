@@ -49,6 +49,7 @@ public class Profile implements Serializable {
 	private List<ProductRate> feedbacks;
 
 	// Order
+	@JsonIgnore
 	@OneToMany(mappedBy = "profile")
 	List<Order> order;
 }

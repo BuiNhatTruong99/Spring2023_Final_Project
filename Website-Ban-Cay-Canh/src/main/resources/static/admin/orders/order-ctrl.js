@@ -1,15 +1,17 @@
 
 app.controller("order-ctrl", function($scope, $http) {
     $scope.orderStatus = [];
+    $scope.filterStatus = [];
     $scope.form = {};
     $scope.orders = [];
 	$scope.orders_completed = [];
 	$scope.orders_canceled = [];
 	$scope.message = "";
 	$scope.status = "";
+	$scope.orderCanceled = false;
 	
 	
-    $scope.init = function() {
+    $scope.initialize = function() {
         $http.get("/api/order").then(resp =>{
 			$scope.orders = resp.data.data;
 		})
@@ -21,34 +23,88 @@ app.controller("order-ctrl", function($scope, $http) {
 		$http.get("/api/order/canceled").then(resp =>{
 			$scope.orders_canceled = resp.data.data;
 		})
-		
+    }
+    
+    $scope.orderStatus = function() {
 		$http.get("/api/orderStatus").then(resp =>{
 			$scope.orderStatus = resp.data.data;
 		})
-    }
+		
+		$http.get("/api/orderStatus/filter").then(resp =>{
+			$scope.filterStatus = resp.data.data;
+		})
+	}
 
-    $scope.init();
+    $scope.initialize();
+    $scope.orderStatus();
     
     $scope.edit = function (order) {
         $scope.form = angular.copy(order);
         $scope.form.totalPrice = $scope.totalPriceProduct($scope.form);
-        //let today = new Date();
-        //$scope.form.update_date = today;
+        $scope.orderCanceled = $scope.form.status.id == 6 ? true : false;
         $(".nav-tabs a:eq(3)").trigger('click');
+    }
+    
+    $scope.orderFilter = function (orderStatus, orderDate) {
+		if(orderStatus == 0 && orderDate == undefined) {
+			$scope.initialize();
+		}else if(orderDate == undefined){
+			$http.get("/api/order/filterStatus?statusId="+orderStatus).then(resp =>{
+				$scope.orders = resp.data.data;
+			})
+		}else if(orderStatus == 0 && orderDate != undefined){
+			orderDate = formatDate(orderDate);
+			$http.get("/api/order/filterDate?createDate="+orderDate).then(resp =>{
+				$scope.orders = resp.data.data;
+			})
+		}else {
+			orderDate = formatDate(orderDate);
+			$http.get("/api/order/filter?statusId="+orderStatus+"&createDate="+orderDate).then(resp =>{
+				$scope.orders = resp.data.data;
+			})
+		}
+		$scope.pager1 = 0;
     }
     
     $scope.update = function () {
         var item = angular.copy($scope.form);
         $http.put(`/api/order/${item.id}`, item).then(resp => {
-			$scope.init();
+			$scope.initialize();
 			$scope.message = "Cập nhật thành công";
-			$scope.status = "Thông báo";
+			$scope.status = "Success";
         }).catch(error => {
             $scope.message = "Cập nhật thất bại";
-            $scope.status = "Cảnh báo";
+            $scope.status = "Warning";
             console.log("Error", error);
         })
         $scope.toats();
+    }
+    
+    $scope.delete = function (order) {
+        $http.delete(`/api/order/${order.id}`).then(resp => {
+			$scope.initialize();
+            $scope.message = "Xóa đơn hàng thành công";
+            $scope.status = "Success";
+            $(".nav-tabs a:eq(2)").trigger('click');
+        }).catch(error => {
+            $scope.message = "Đơn hàng đang liên kết khóa ngoại";
+            $scope.status = "Warning";
+            console.log("Error", error);
+        })
+        $scope.toats();
+    }
+    
+    $scope.find = function () {
+        var kw = document.getElementById("key__word").value;
+        if (kw == "") {
+            $scope.initialize();
+        } else {
+            $http.get(`/api/order/search/${kw}`).then(resp => {
+                $scope.orders = resp.data.data;
+                $scope.orders_completed = $scope.orders;
+				$scope.orders_canceled = $scope.orders;
+            })
+        }
     }
     
     $scope.totalPriceProduct = function (form) {
@@ -59,18 +115,17 @@ app.controller("order-ctrl", function($scope, $http) {
 		return totalPriceProduct;
     }
     
-    $scope.toats = function () {
-        $('.toast').toast('show');
-        setTimeout(function () {
+	$scope.toats = function () {
+            $('.toast').toast('show');
+            setTimeout(function () {
             $('.toast').toast('hide');
-        }, 2000);
+         }, 2000);
 
     }
 
     $scope.hideToast = function () {
-        $('.toast').toast('hide');
+            $('.toast').toast('hide');
     }
-
     
     $scope.pager = {
 		page1: 0,
@@ -176,3 +231,6 @@ app.controller("order-ctrl", function($scope, $http) {
 	}
 
 })
+function formatDate(date) {
+  return date.toLocaleDateString('en-CA'); // yyyy-MM-dd
+}

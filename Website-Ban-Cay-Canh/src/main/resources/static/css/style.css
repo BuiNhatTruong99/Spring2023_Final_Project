@@ -2420,3 +2420,18 @@ ul {
     width: 350px;
     float: right;
 }
+
+.text-status {
+	font-size: 13px;
+}
+
+.order-img{
+	width: 100px;
+	height: 100px;
+}
+
+.btn-return{
+	text-align: center;
+	width: 154px;
+	padding: 8px 0;
+}

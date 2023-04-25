@@ -21,6 +21,8 @@ public class OrderDTO {
 	private Date create_date = new Date();
 	@Temporal(TemporalType.DATE)
 	private Date update_date = new Date();
+	private Integer coupon;
+	private Double ship;
 	private String note;
 	private Double total;
 	private OrderStatus status;
@@ -35,6 +37,8 @@ public class OrderDTO {
     	orderDTO.setAddress(order.getAddress());
     	orderDTO.setCreate_date(order.getCreate_date());
     	orderDTO.setUpdate_date(order.getUpdate_date());
+    	orderDTO.setCoupon(order.getCoupon());
+    	orderDTO.setShip(order.getShip());
     	orderDTO.setNote(order.getNote());
     	orderDTO.setTotal(order.getTotal());
     	orderDTO.setStatus(order.getStatus());

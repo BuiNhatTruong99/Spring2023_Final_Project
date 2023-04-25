@@ -130,7 +130,6 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
 
     $('#cart__button').ready(function () {
         var user_id = document.getElementById('user_id').value;
-        console.log(user_id);
         if (user_id == null) {
             user_id = 0;
         } else {
@@ -155,46 +154,50 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
         $scope.shipmoney = selectedShip;
     }
 
-
-
     $scope.create = function () {
         var saleP = document.getElementById("saleP");
         var saleText = saleP.textContent;
         var saleValue = saleText.replace("%", "");
+        var user_id = getUserId();
         saleP.textContent = saleValue;
-
         $scope.order.phone = document.getElementById('phone').value;
         $scope.order.address = document.getElementById('address').value;
         $scope.order.coupon = saleValue;
         $scope.order.ship = parseInt(document.querySelector('input[name="ship"]:checked').value);
-
         $scope.order.total = document.getElementById('totalmoney').textContent;
-        // $scope.order.status.id = $scope.orderstatus = 1;
-        // $scope.order.profile_id =  document.getElementById('user_id').value;
-
-        var itemorder = angular.copy($scope.order);
-
-
-        $http.post(`/api/order`, itemorder).then(resp => {
-            $scope.order.push(resp.data);
+        $scope.order.status = {id: 1};
+        $scope.order.profile = {id: user_id};
+        alert(JSON.stringify($scope.cart.items));
+        $scope.order.oderDetails = $scope.cart.items.map(item => {
+                return {
+                    price: item.price,
+                    quantity: item.qty,
+                    sale: 0.0,
+                    product: {id:item.id},
+                }});
+        $http.post(`/api/order`, $scope.order).then(resp => {
             $scope.message = "Mua thành công";
-            console.log($scope.order)
+            console.log($scope.order);
         }).catch(error => {
             $scope.message = "Mua thất bại";
             console.log("Error", error);
         })
     }
-
-
-
 });
+
+function getUserId () {
+	try {
+		return document.getElementById('user_id').value;
+	}catch {
+		return null;
+	}
+}
 
 function getCurrentURL() {
     return window.location.pathname;
 }
 
 const url = getCurrentURL();
-console.log(url);
 
 app.filter('vndFilter', function () {
     return function (x) {
@@ -202,4 +205,3 @@ app.filter('vndFilter', function () {
         return x.toString().split('.').join(',');
     };
 });
-

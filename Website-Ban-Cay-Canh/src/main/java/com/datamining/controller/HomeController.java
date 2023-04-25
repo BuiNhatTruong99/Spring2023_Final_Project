@@ -66,6 +66,20 @@ public class HomeController {
 			return "user/security/my-account";
 		}
 	}
+	
+	@GetMapping("/account/order-detail")
+	public String order_detail(Model model, @RequestParam("id") Integer idOrder,HttpServletRequest req)
+	{
+		if(req.getRemoteUser() == null)
+		{
+			return "redirect:/login/form";
+		}else {
+			Account us = aService.findByTk(req.getRemoteUser());
+			int usId = us.getId();
+			model.addAttribute("user_id", usId);
+			return "user/security/order-detail";
+		}
+	}
 
 	@RequestMapping("/cart/detail")
 	public String cart_detail(Model model,HttpServletRequest req)

@@ -42,7 +42,6 @@ public class Order implements Serializable {
 	private Date update_date = new Date();
 
 	// Order_Detail
-	@JsonIgnore
 	@OneToMany(mappedBy = "order")
 	private List<OrderDetail> oderDetails;
 
