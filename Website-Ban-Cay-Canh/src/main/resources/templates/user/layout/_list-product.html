@@ -42,7 +42,7 @@
 					<span th:if="${p.productSizes.size==0}" class="price mt-n1">
 						[[${#numbers.formatDecimal(p.price, 0, 'COMMA', 0, 'POINT')} + ' VND']]
 					</span>
-					
+
 					<span th:if="${p.productSizes.size>0}" class="price mt-n1" id="price">
 						[[${#numbers.formatDecimal(p.productSizes[0].price, 0, 'COMMA', 0, 'POINT')} + ' VND']]
 					</span>
@@ -50,23 +50,23 @@
 						<span>Kích cỡ: </span>
 						<div class="size-swap">
 							<div th:each="s:${p.productSizes}" class="n-sd size_item" data-value="">
-								<input type="radio" onchange="submitSize()" class="size_radio" 
+								<input type="radio" onchange="submitSize()" class="size_radio"
 								th:name="size" th:value="${s.size.id}+','+${s.price}">
 									[[${s.size.id}]]
 							</div>
 						</div>
 					</div>
 					<div class="quantity-button">
-                        <span>Số lượng: </span>
+<!--                        <span>Số lượng: </span>-->
                         <div class="quantity-1">
-                             <input type="number" id="quantity" class="input-text qty text" step="1"
-                                    min="1" max="50" name="quantity" value="1" title="Số lượng sản phẩm muốn chọn" size="4" placeholder=""
-                                    inputmode="numeric" autocomplete="off">
+							<input type="hidden" id="quantity" class="input-text qty text" step="1"
+								   min="1" max="50" name="quantity" value="1" title="Qty" size="4" placeholder=""
+								   inputmode="numeric" autocomplete="off">
                         </div>
                         <button th:attr="ng-click=@{|cart.add(${p.id})|}" class="single_add_to_cart_button button alt">Thêm vào giỏ hàng</button>
                     </div>
                     <a th:href="@{|/product/${p.url}|}" class="view-detail">Xem chi tiết sản phẩm</a>
-				</div>				
+				</div>
 			</div>
 		</div>
 	</div>

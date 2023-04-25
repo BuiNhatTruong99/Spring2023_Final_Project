@@ -29,6 +29,7 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
             $scope.time = timeAlert;
             let quantity = document.querySelector("#quantity");
             let quantity2 = quantity ? parseInt(quantity.value) : 1;
+            console.log(quantity2);
             let product_size = document.querySelector('input[name="size"]:checked');
             let product_size2 = product_size ? product_size.value : '';
             let arr = product_size2.split(",");
