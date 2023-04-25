@@ -25,7 +25,7 @@ app.controller('register-ctrl', function($scope, $http) {
                 $scope.message = "Mật khẩu không khớp";
                 return;
             } else {
-                var index = $scope.accounts.findIndex(a => a.username == $scope.form.username);
+                var index = $scope.accounts.findIndex(a => a.username === $scope.form.username);
                 if(index > 0) {
                     $scope.message = "Username này đã tồn tại";
                     return;

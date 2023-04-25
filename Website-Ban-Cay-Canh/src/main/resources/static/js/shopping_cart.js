@@ -33,6 +33,7 @@ app.controller('shoppingCart-ctrl', function ($scope, $http) {
                     resp.data.data.idSize = idSize;
                     resp.data.data.priceSize = Math.floor(priceSize);
                     resp.data.data.qty = quantity2;
+                    // console.log(resp.data);
                     this.items.push(resp.data.data);
                     this.saveToLocalStorage()
                     alert("Thêm " + quantity2 + " sản phẩm [" + resp.data.data.name + "] vào giỏ hàng thành công!");
