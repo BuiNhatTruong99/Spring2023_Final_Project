@@ -45,4 +45,8 @@ public interface ProductService {
     Page<Product> findByPriceBetweenPage(Double price1, Double price2, Pageable pageable);
 
     List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
+
+    //dashbroad
+
+    List<Product> top5Sale();
 }

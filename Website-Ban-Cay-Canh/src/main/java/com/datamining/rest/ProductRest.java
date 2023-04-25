@@ -1,9 +1,11 @@
 package com.datamining.rest;
 
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import com.datamining.DTO.ProductDTO;
+import com.datamining.entity.Product;
 import com.datamining.service.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +47,12 @@ public class ProductRest {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ObjectResponse("error", e.getMessage(), HttpStatus.BAD_REQUEST.value()));
         }
+    }
+
+    @GetMapping("/topsale")
+    public List<Product> getTopSale()
+    {
+        return productService.top5Sale();
     }
   
     

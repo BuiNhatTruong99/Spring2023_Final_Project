@@ -110,5 +110,10 @@ public class ProductServiceImpl implements ProductService {
         return pdao.findByPriceBetweenByCate(price1,price2,url,pageable);
     }
 
+    @Override
+    public List<Product> top5Sale() {
+        return pdao.top5Sale();
+    }
+
 
 }

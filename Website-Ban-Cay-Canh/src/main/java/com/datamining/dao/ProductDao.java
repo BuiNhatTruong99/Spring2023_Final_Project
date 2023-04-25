@@ -54,4 +54,10 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
             " or (ps.price >=  ?1 and ps.price <= ?2)  and c.url = ?3 order by p.price asc", nativeQuery = true)
     List<Product> findByPriceBetweenByCate(Double price1, Double price2, String url, Pageable pageable);
 
+
+    // dashbroad
+
+    @Query(value = "select p.*,SUM(d.quantity),SUM(d.quantity * p.price) from order_detail d join products p on p.id = d.product_id" +
+            " group by p.id order by SUM(d.quantity) DESC LIMIT 5",nativeQuery = true)
+    List<Product> top5Sale();
 }
