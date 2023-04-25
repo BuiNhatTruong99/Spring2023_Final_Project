@@ -1,5 +1,6 @@
 package com.datamining.rest;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -83,16 +84,24 @@ public class OrderRest {
     }
 
 	@PostMapping
-	public Order create(@RequestBody Order order) {
-
-		return orderService.create(order);
+	public ObjectResponse create(@RequestBody Order order) {
+		Order orderNew = orderService.create(order);
+		for(int i = 0; i < order.getOderDetails().size(); i++) {
+			OrderDetail orderDetailNew = new OrderDetail();
+			orderDetailNew.setOrder(orderNew);
+			orderDetailNew.setSale((float) 0);
+			orderDetailNew.setPrice(order.getOderDetails().get(i).getPrice());
+			orderDetailNew.setQuantity(order.getOderDetails().get(i).getQuantity());
+			orderDetailNew.setProduct(order.getOderDetails().get(i).getProduct());
+			orderDetailService.create(orderDetailNew);
+		}
+		return new ObjectResponse("success", "thêm thành công", HttpStatus.OK.value());
 	}
 
     @PutMapping("/{id}")
     public ObjectResponse update(@PathVariable("id") Integer id, @RequestBody OrderDTO orderDTO) {
         var order = Order.convert(orderDTO);
         var newOrder = orderService.update(id, order);
-        var newOrderDTO = OrderDTO.convert(newOrder);
         return new ObjectResponse("success", "update thành công", HttpStatus.OK.value());
     }
     

@@ -15,8 +15,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 	@Autowired
 	OrderDetailDAO dao;
 	
+	@Override
 	public List<OrderDetail> findByOrderId(Integer id) {
 		return dao.findByOrderId(id);
+	}
+	
+	@Override
+	public OrderDetail create(OrderDetail orderDetail) {
+		return dao.save(orderDetail);
 	}
 	
 	@Override

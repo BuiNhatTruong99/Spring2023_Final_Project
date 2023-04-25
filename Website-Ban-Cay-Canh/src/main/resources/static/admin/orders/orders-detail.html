@@ -94,10 +94,10 @@
           		Tổng tiền sản phẩm: {{form.totalPrice | vndFilter}}
           	</div>
           	<div class="mt-3 mb-4">
-          		Giảm giá: 20%
+          		Giảm giá: {{form.coupon?form.coupon:0}}%
           	</div>
           	<div class="mb-4">
-          		Phí vận chuyển: 25,000 VND
+          		Phí vận chuyển: {{form.ship?form.ship:0 | vndFilter}}
           	</div>
           	<div class="mb-4">	
           		Thành tiền: {{form.total | vndFilter}}

@@ -107,16 +107,16 @@
 							</table>
 						</div>
 						<div class="my-3 row col-6">
-							<div class="col-4">
+							<div class="col-5">
 								<div class="mb-4">Tổng tiền sản phẩm:</div>
 								<div class="mb-4">Giảm giá:</div>
 								<div class="mb-4">Phí vận chuyển:</div>
 								<div class="mb-4">Thành tiền:</div>
 							</div>
-							<div class="col-8">
+							<div class="col-7">
 								<div class="mb-4">{{item.totalPrice | vndFilter}}</div>
-								<div class="mb-4">20%</div>
-								<div class="mb-4">25,000 VND</div>
+								<div class="mb-4">{{item.coupon ? item.coupon : 0}}%</div>
+								<div class="mb-4">{{item.ship ? item.ship : 0 | vndFilter}}</div>
 								<div class="mb-4 fw-bold">{{item.total | vndFilter}}</div>
 							</div>
 						</div>

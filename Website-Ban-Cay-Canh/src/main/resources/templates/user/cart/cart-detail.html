@@ -119,7 +119,7 @@
 
                                 </li>
                                 <span id="totalmoney" style="visibility: hidden">{{cart.amount -( cart.amount*
-                                    (CouponSale/100))}}</span>
+                                    (CouponSale/100)) + shipmoney}}</span>
                                 <form class="card p-2 " id="coupon-apply" action="/coupon" method="POST">
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="code" placeholder="Mã giảm giá">
