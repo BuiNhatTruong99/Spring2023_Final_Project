@@ -138,5 +138,10 @@ public class OrderRest {
 		var orderDTO = orders.stream().map(OrderDTO::convert).collect(Collectors.toList());
 		return new ObjectResponse("ok", orderDTO, HttpStatus.OK.value());
     }
+    
+    @GetMapping("/totalProductSold")
+    public Integer getTotalProductSold() {
+		return orderService.getTotalProductSold();
+    }
 }
 

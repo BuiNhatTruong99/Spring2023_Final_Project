@@ -1,10 +1,8 @@
-app.controller('wishlist-ctrl', function($scope, $http, $location) {
+app.controller('wishlist-ctrl', function($scope, $http) {
 	$scope.items = [];
     let user_id = null;
 	
-	// Get all item from rest
 	$scope.initialize = function() {
-		// load wish list
 		user_id = getUserId();
 		$http.get(`/api/account/${user_id}/wishlist`).then(resp => {
 			$scope.items = resp.data.data.likedProducts;
@@ -13,12 +11,15 @@ app.controller('wishlist-ctrl', function($scope, $http, $location) {
 		});
 	}
 	
-	if (url.match("/wishlist") || url.match("/home/index") && getUserId()!=null) {
+	if (url.match("/wishlist") || url.match("/home") && getUserId()!=null) {
 		$scope.initialize();
 	}
 	
 	$scope.insert = function(productId) {
 		user_id = getUserId();
+		if(user_id == null) {
+			return location.href="/login/form";
+		}
 		for(var i = 0; i < $scope.items.length; i++){
 			if(productId == $scope.items[i].id)return alert("Sản phẩm này đã có trong yêu thích của bạn!");
 		}

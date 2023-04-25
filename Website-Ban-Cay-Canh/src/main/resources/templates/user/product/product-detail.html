@@ -225,7 +225,11 @@
                     </div>
                     <em ng-bind-html="message"></em>
                     <span th:if="!${#request.remoteUser}">(Vui lòng <a href="/login/form">đăng nhập</a> để bình luận)</span>
-                    <button ng-click="create()">Đánh giá</button>
+                    <span th:if="${#request.remoteUser}">
+                    	<div class="mt-2">
+                    		<a class="btn btn-secondary" ng-click="create()">Đánh giá</a>
+                    	</div>
+                    </span>
                 </form>
             </div>
         </div>

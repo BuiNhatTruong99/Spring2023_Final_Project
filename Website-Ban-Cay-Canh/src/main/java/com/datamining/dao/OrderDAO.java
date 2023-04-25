@@ -37,4 +37,8 @@ public interface OrderDAO extends JpaRepository<Order, Integer> {
 	
 	@Query(value="SELECT * FROM Orders o JOIN Profile pf on o.profile_id = pf.id WHERE o.id = ?1 or pf.fullname like %?1%", nativeQuery = true)
     List<Order> findByKeyWord(String keyword);
+	
+	@Query(value="SELECT SUM(quantity) FROM Orders o JOIN Order_Detail od on o.id = od.order_id WHERE create_date BETWEEN DATE_FORMAT(NOW() ,'%Y-%m-01') AND LAST_DAY(NOW())", nativeQuery = true)
+    Integer getTotalProductSold();
+	
 }
