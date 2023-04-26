@@ -272,12 +272,12 @@
   <!-- ======= Sidebar ======= -->
   <aside id="sidebar" class="sidebar">
     <ul class="sidebar-nav" id="sidebar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/admin#!dashboard">
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="/admin">
           <i class="bi bi-grid"></i>
           <span>Trang chủ</span>
         </a>
-      </li>
+      </li> -->
       <!-- End Dashboard Nav -->
 
       <!-- <li class="nav-item">
@@ -316,16 +316,11 @@
           </li>
           <li>
             <a href="/admin#!order">
-              <i class="bi bi-circle"></i><span>Hóa đơn</span>
-            </a>
-          </li>
-          <li>
-            <a href="#!authority">
-              <i class="bi bi-circle"></i><span>Cấp quyền</span>
+              <i class="bi bi-circle"></i><span>Hoá đơn</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link collapsed" href="#!profile">
+            <a class="nav-link collapsed" href="/admin#!profile">
               <i class="bi bi-person"></i>
 
               <span>Thông tin người dùng</span>
@@ -355,6 +350,17 @@
         </a>
       </li> -->
 
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#!feedback">
+          <i class="bi bi-star"></i><span>Phản hồi</span>
+        </a>
+      </li> -->
+
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#!authority">
+          <i class="bi bi-bar-chart"></i><span>Thống kê</span>
+        </a>
+      </li> -->
 
       <li class="nav-item">
         <a class="nav-link" href="../admin/charts-chartjs">
@@ -657,7 +663,7 @@
   <!-- Template Main JS File -->
   <script src="../admin/assets/js/main.js"></script>
   <script th:inline="javascript">
-    let monthChart = [], valueChart = [], order_value = [], cate_name = [], value_cate = [],  pro_count = [];
+    let monthChart = [], valueChart = [], order_value = [], cate_name = [], value_cate = [], pro_count = [];
 
     /*[# th:each="data : ${chart_data}"]*/
     monthChart.push(/*[[${data.date}]]*/);

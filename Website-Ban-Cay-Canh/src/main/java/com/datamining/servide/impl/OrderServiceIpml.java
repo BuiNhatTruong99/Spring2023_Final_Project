@@ -75,6 +75,11 @@ public class OrderServiceIpml implements OrderService {
 	public List<Order> findByKeyWord(String keyword) {
 		return dao.findByKeyWord(keyword);
 	}
+
+	@Override
+	public Integer getTotalProductSold() {
+		return dao.getTotalProductSold();
+	}
 }
 
 

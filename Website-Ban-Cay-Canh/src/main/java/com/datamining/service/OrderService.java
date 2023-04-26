@@ -32,4 +32,6 @@ public interface OrderService {
 	List<Order> findByProfileId(Integer idProfile);
 	
 	List<Order> findByKeyWord(String keyword);
+	
+	Integer getTotalProductSold();
 }

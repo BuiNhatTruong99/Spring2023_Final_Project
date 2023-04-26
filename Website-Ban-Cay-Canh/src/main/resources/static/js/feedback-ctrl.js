@@ -2,9 +2,8 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 	$scope.items = [];
 	$scope.form = {};
 	let user_id = null;
-	// Get all item from rest
+
 	$scope.initialize = function() {
-		// load productRates
 		$http.get(`/api/productRates/${productId}`).then(resp => {
 			$scope.items = resp.data.data;
 			$scope.productRate($scope.items);
@@ -14,14 +13,18 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 		});
 	}
 	
+	$scope.initialize();
+	
 	$scope.productRate = function(items) {
 		$scope.arrayRate = items.map(i => {return i.rate});
 		$scope.totalRate = $scope.calculateAverageRate($scope.arrayRate);
 	}
 	
-	// lấy thông tin user, lấy id sp
 	$scope.create = function() {
 		user_id = getUserId();
+		if(user_id == null) {
+			return location.href="/login/form";
+		}
 		$scope.form.user = {'id': user_id};
 		$scope.form.product_id = productId;
 		var item = angular.copy($scope.form);
@@ -70,7 +73,7 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 	}
 	
 	$scope.checkComment = function() {
-	  var badWords = ["cc", "dmm", "dm", "cl"]; // danh sách từ ngữ xấu
+	  var badWords = ["cc", "dmm", "dm", "cl", "fuck"]; // danh sách từ ngữ xấu
 	  var words = $scope.form.comment.split(" "); // tách comment thành các từ
 	
 	  for (var i = 0; i < words.length; i++) {
@@ -138,9 +141,11 @@ app.controller('feedback-ctrl', function($scope, $rootScope, $http) {
 			this.page = this.count - 1;
 		}
 	}
-	
-	$scope.initialize();
 });
 function getUserId () {
-	return document.getElementById('user_id').value;
+	try {
+		return document.getElementById('user_id').value;
+	}catch {
+		return null;
+	}
 }
